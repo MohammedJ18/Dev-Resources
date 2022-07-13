@@ -17,11 +17,13 @@ class ResourceSeeder extends Seeder
     {
         ### id = 1 ###
         Resource::create([
+            'user_id' => 1,
             'category_id' => 1,
             'name' => ' html',
             'description'=>'html resource',
             'icon' => "html ",
             'screenShot' => "html ",
+            'state' => true,
 
         ]);
     }
