@@ -71,6 +71,7 @@ class ResourceController extends Controller
         if ($validator->fails()) {
             return $this->response(['msg' => $validator->errors()->first(), 'status' => 'error']);
         }
+
         if( $req->screenShot){
             $ext = $req->screenShot->extension();
             $name = \Str::random(10) . '.' . $ext;
@@ -88,7 +89,7 @@ class ResourceController extends Controller
             'screenShot' => $req->screenShot_path,
         ]);
 
-        return $this->response(['msg' => 'Resource updated successfully', 'status' => 'success', 'data' => $resource]);
+        return $this->response(['msg' => 'Resource updated successfully', 'status' => 'success', $resource]);
     }
 
     public function deleteResource(Request $req)

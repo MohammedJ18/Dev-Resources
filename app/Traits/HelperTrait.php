@@ -10,7 +10,6 @@ trait HelperTrait
         $array = [
             'msg' => $data['msg'],
             'status' => $data['status'],
-            'data' => $data['data']
         ];
 
         return response()->json($array);
