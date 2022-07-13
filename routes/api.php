@@ -10,7 +10,10 @@ use App\Http\Controllers\Api\{
     Category\CategoryController,
 
     ### Resource ###
-    Resource\ResourceController
+    Resource\ResourceController,
+
+    ### Link ###
+    Link\LinkController,
 
 };
 use Illuminate\Http\Request;
