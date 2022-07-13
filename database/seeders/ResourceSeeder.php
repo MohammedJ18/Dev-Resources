@@ -18,7 +18,7 @@ class ResourceSeeder extends Seeder
     {
         $cate = Category::get();
         foreach ($cate as $item ) {
-            for($i = 1 ; $i <= 3 ; $i++)
+            for($i = 1 ; $i <= 2 ; $i++)
                 Resource::create([
                     'name' => 'Resource '.$i,
                     'description' => 'Description '.$i,
