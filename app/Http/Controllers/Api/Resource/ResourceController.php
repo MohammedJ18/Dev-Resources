@@ -71,6 +71,7 @@ class ResourceController extends Controller
         if ($validator->fails()) {
             return $this->response(['msg' => $validator->errors()->first(), 'status' => 'error']);
         }
+
         if( $req->screenShot){
             $ext = $req->screenShot->extension();
             $name = \Str::random(10) . '.' . $ext;
@@ -80,6 +81,7 @@ class ResourceController extends Controller
         }
 
         $resource = Resource::find($req->id);
+        dd($req->screenShot);
         $resource->update([
             'name' => $req->name,
             'category_id' => $req->category_id,
