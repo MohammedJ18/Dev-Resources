@@ -37,10 +37,10 @@ class CategoryController extends Controller
         
         $category = new Category;
 
-        $category->user_id = auth()->user()->id;
+        $user_id = auth()->id();
         $category = $category->add([
             'name' => $req->name,
-            'user_id' => $category->user_id,
+            'user_id' => $user_id,
         ]);
     
     
