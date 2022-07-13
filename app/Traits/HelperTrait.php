@@ -7,7 +7,6 @@ trait HelperTrait
 {
     public function response($data = [])
     {
-
         $array = [
             'msg' => $data['msg'],
             'status' => $data['status'],

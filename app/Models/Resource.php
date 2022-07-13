@@ -10,7 +10,7 @@ class Resource extends Model
 {
     use HasFactory;
     use HelperTrait;
-    protected $fillable = ['name', 'description', 'icon', 'screenShot'];
+    protected $fillable = ['name', 'description', 'icon', 'screenShot','category_id'];
 
     // Relationship
     public function category()
