@@ -44,15 +44,23 @@ Route::middleware(['auth'])->group(function () {
 
     //Category
     Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-        Route::get('/', 'categories');
+        Route::get('/', 'getCategories');
         Route::get('/{id}', 'category');
-        Route::post('/add', 'add');
-        Route::post('/edit', 'edit');
-        Route::post('/delete', 'delete');
+        Route::post('/add', 'addCategory');
+        Route::post('/edit', 'editCategory');
+        Route::post('/delete', 'deleteCategory');
     });
 
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
+        Route::get('/', 'getResource');
+        Route::post('/add', 'addResource');
+        Route::post('/edit', 'editResource');
+        Route::post('/delete', 'deleteResource');
+    });
+
+    // Link
+    Route::controller(LinkController::class)->prefix('links')->group(function () {
         Route::get('/', 'getResource');
         Route::post('/add', 'addResource');
         Route::post('/edit', 'editResource');

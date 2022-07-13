@@ -10,7 +10,7 @@ class Link extends Model
 {
     use HasFactory;
     use HelperTrait;
-    protected $fillable = ['url'];
+    protected $fillable = ['url' , 'resource_id'];
 
     public function resource()
     {

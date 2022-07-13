@@ -9,7 +9,7 @@ use App\Models\Category;
 
 class CategoryController extends Controller
 {
-    public function categories(){
+    public function getCategories(){
         $category = user_category();
         return response()->json($category);
     }
@@ -23,7 +23,7 @@ class CategoryController extends Controller
         return response()->json($category);
     }
 
-    public function add(Request $req){
+    public function addCategory(Request $req){
         $validator = Validator::make($req->all(), [
             'name'         => 'required',
         ]);
@@ -47,7 +47,7 @@ class CategoryController extends Controller
         return response()->json(['category'=> $category], 201);
     }
 
-    public function edit(Request $req){
+    public function editCategory(Request $req){
         $validator = Validator::make($req->all(), [
             'id'           => 'required',
             'name'         => 'required',
@@ -71,7 +71,7 @@ class CategoryController extends Controller
         return response()->json(['category'=> $category], 200);
     }
 
-    public function delete(Request $req){
+    public function deleteCategory(Request $req){
         $validator = Validator::make($req->all(), [
             'id'           => 'required',
         ]);
@@ -87,5 +87,5 @@ class CategoryController extends Controller
         
         return response()->json(['message'=> 'Category deleted'], 200);
     }
-    
+
 }
