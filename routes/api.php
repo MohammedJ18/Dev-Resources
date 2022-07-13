@@ -47,6 +47,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/', 'categories');
         Route::get('/{id}', 'category');
         Route::post('/add', 'add');
+        Route::post('/edit', 'edit');
+        Route::post('/delete', 'delete');
     });
 
     // Resources
