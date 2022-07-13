@@ -61,10 +61,11 @@ Route::middleware(['auth'])->group(function () {
 
     // Link
     Route::controller(LinkController::class)->prefix('links')->group(function () {
-        Route::get('/', 'getResource');
-        Route::post('/add', 'addResource');
-        Route::post('/edit', 'editResource');
-        Route::post('/delete', 'deleteResource');
+        Route::get('/', 'getLinks');
+        Route::get('/{id}', 'link');
+        Route::post('/add', 'addLink');
+        Route::post('/edit', 'editLink');
+        Route::post('/delete', 'deleteLink');
     });
 });
 
