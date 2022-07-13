@@ -22,9 +22,11 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [RegisterController::class, 'register']);
 
 //Login
-Route::controller(LoginController::class)->middleware(['api'])->prefix('auth')->group(function () {
+Route::controller(LoginController::class)->middleware(['api'])->group(function () {
     Route::post('/login', 'login');
-    Route::post('/logout', 'logout');
+
     Route::post('/refresh', 'refresh');
     Route::get('/user', 'me');
 });
+
+Route::middleware(['auth'])->post('/logout',[LoginController::class, 'logout'] );
