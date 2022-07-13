@@ -12,6 +12,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 
+use App\Traits\HelperTrait;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -21,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
     use HasApiTokens;
     use TwoFactorAuthenticatable;
     use SoftDeletes;
+    use HelperTrait;
 
 
 
