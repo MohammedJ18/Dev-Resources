@@ -32,8 +32,8 @@ class CategoryController extends Controller
             return response()->json(['message' => $validator->errors()], 400);
         }
 
-        // if(user_category(null ,$req->name))
-        //     return response()->json(['message' => 'Category already exists'], 400);
+        if(user_category(null , $req->name))
+            return response()->json(['message' => 'Category already exists'], 400);
         
         $category = new Category;
 

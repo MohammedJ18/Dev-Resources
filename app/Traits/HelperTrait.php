@@ -7,7 +7,6 @@ trait HelperTrait
 {
     public function response($data = [])
     {
-
         $array = [
             'msg' => $data['msg'],
             'status' => $data['status'],
@@ -21,5 +20,12 @@ trait HelperTrait
         $model->fill($data);
         $model->save();
         return $model;
+    }
+
+    // update the model
+
+    public function edit($data) {
+        $this->fill($data);
+        $this->save();
     }
 }
