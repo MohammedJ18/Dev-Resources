@@ -1,12 +1,17 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\{
-    RegisterController,
-    LoginController
+use App\Http\Controllers\Api\{
+    ### Auth ###
+    Auth\RegisterController,
+    Auth\LoginController,
+    Auth\LogoutController,
+
+    ### Category ###
+    Category\CategoryController,
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Artisan;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,3 +35,10 @@ Route::controller(LoginController::class)->middleware(['api'])->group(function (
 });
 
 Route::middleware(['auth'])->post('/logout',[LoginController::class, 'logout'] );
+
+Route::middleware(['auth'])->group(function () {
+    Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+        Route::get('/', 'categories');
+    });
+});
+

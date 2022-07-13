@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 
-class CategoryContrpller extends Controller
+class CategoryController extends Controller
 {
     public function categories(){
         $category = user_category();

@@ -1,7 +1,8 @@
 <?php
 use App\Models\Category;
-function user_category($user_id)
-{
-    $category = Category::where('user_id', $user_id)->exists()->get();
+
+
+function user_category(){
+    $category = Category::with('resources')->where('user_id', auth()->id())->get();
     return $category;
 }

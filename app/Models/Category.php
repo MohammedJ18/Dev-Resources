@@ -10,6 +10,7 @@ class Category extends Model
 {
     use HasFactory;
     use HelperTrait;
+    
     protected $fillable = ['name'];
 
     // Relationship
