@@ -13,13 +13,13 @@ class ResourceController extends Controller
     public function getResource()
     {
         $resources = Resource::with(['category'])->get();
-        $data = [
-            'msg' => 'Resource',
-            'status' => 200,
-            'data' => $resources,
-        ];
-        return $this->response($data);
-
+        // $data = [
+        //     'msg' => 'Resource',
+        //     'status' => 200,
+        //
+        // ];
+        // return $this->response($data);
+        return response()->json($resources);
 
     }
 
