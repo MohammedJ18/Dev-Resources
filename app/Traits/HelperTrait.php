@@ -15,4 +15,11 @@ trait HelperTrait
 
         return response()->json($array);
     }
+
+    public static function add($data) {
+        $model = new self;
+        $model->fill($data);
+        $model->save();
+        return $model;
+    }
 }
