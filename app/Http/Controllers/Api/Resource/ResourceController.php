@@ -86,7 +86,7 @@ class ResourceController extends Controller
             'category_id' => $req->category_id,
             'description' => $req->description,
             'icon' => $req->icon,
-            'screenShot' => $req->screenShot_path,
+            'screenShot' => $screenShot_path,
         ]);
 
         return $this->response(['msg' => 'Resource updated successfully', 'status' => 'success', $resource]);
