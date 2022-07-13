@@ -45,6 +45,7 @@ Route::middleware(['auth'])->group(function () {
     //Category
     Route::controller(CategoryController::class)->prefix('categories')->group(function () {
         Route::get('/', 'categories');
+        Route::get('/{id}', 'category');
     });
 
     // Resources
