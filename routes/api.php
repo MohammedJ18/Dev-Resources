@@ -1,10 +1,14 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\LoginController;
-use App\Http\Controllers\Api\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Api\RegisterController;
+use App\Http\Controllers\Api\{
+    ### Auth ###
+    Auth\loginController,
+
+};
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -25,4 +29,10 @@ Route::controller(LoginController::class)->middleware(['api'])->prefix('auth')->
     Route::post('/logout', 'logout');
     Route::post('/refresh', 'refresh');
     Route::get('/user', 'me');
+});
+
+
+Route::middleware(['auth'])->group(function () {
+
+
 });
