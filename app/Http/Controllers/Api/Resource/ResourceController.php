@@ -1,26 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers\Api\Resource;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\HelperTrait;
 use App\Models\Resource;
-
 class ResourceController extends Controller
 {
     use HelperTrait;
     public function getResource()
     {
         $resources = Resource::with(['category'])->get();
-        // $data = [
-        //     'msg' => 'Resource',
-        //     'status' => 200,
-        //
-        // ];
-        // return $this->response($data);
         return response()->json($resources);
 
     }
-
 }

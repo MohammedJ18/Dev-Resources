@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Api\Auth\{
-    RegisterController,
-    LoginController,
-    ResourceController
+use App\Http\Controllers\Api\{
+    Auth\RegisterController,
+    Auth\LoginController,
+    Resource\ResourceController
+
 };
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
