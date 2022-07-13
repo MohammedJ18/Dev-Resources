@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\{
     ### Auth ###
     Auth\loginController,
+    
 
 };
 /*
@@ -33,6 +34,9 @@ Route::controller(LoginController::class)->middleware(['api'])->prefix('auth')->
 
 
 Route::middleware(['auth'])->group(function () {
-
-
+        ### Category ###
+            Route::controller(CategoryContrpller::class)->prefix('categories')->group(function () {
+                Route::get('/', 'categories');
+            });
 });
+

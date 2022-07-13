@@ -1,6 +1,7 @@
 <?php
-
-function dg($data)
+use App\Models\Category;
+function user_category($user_id)
 {
-    \Debugbar::info($data);
+    $category = Category::where('user_id', $user_id)->exists()->get();
+    return $category;
 }
