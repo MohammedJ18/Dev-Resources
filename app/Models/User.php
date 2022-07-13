@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
+use App\Traits\HelperTrait;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -18,6 +19,7 @@ class User extends Authenticatable implements JWTSubject
     use Notifiable;
     use TwoFactorAuthenticatable;
     use SoftDeletes;
+    use HelperTrait;
 
 
 
