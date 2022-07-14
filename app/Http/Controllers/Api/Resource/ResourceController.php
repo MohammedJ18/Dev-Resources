@@ -28,7 +28,6 @@ class ResourceController extends Controller
             'subsection_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
             'description' => 'required',
-            'icon' => 'required',
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
@@ -47,7 +46,6 @@ class ResourceController extends Controller
             'subsection_id' => $req->subsection_id,
             'name' => $req->name,
             'description' => $req->description,
-            'icon' => $req->icon,
             'screenShot' => $screenShot_path,
             'state' => false,
         ];
@@ -69,14 +67,11 @@ class ResourceController extends Controller
             'subsection_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
             'description' => 'required',
-            'icon' => 'required',
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->response(['msg' => $validator->errors()->first(), 'status' => 'error']);
         }
-
-
 
         if( $req->screenShot){
             $ext = $req->screenShot->extension();
@@ -87,21 +82,18 @@ class ResourceController extends Controller
         }
 
         $resource = auth()->user()->resources()->find($req->id);
-        dd($resource);
-        if ($resource) {
-            $resource->update([
-                'name' => $req->name,
-                'category_id' => $req->category_id,
-                'subsection_id' => $req->subsection_id,
-                'description' => $req->description,
-                'icon' => $req->icon,
-                'screenShot' => $screenShot_path,
-            ]);
-
-            return $this->response(['msg' => 'Resource updated successfully', 'status' => 'success']);
-        } else {
+        if (!$resource)
             return $this->response(['msg' => 'Something went wrong',  'status' => 'error']);
-        }
+
+        $resource->update([
+            'name' => $req->name,
+            'category_id' => $req->category_id,
+            'subsection_id' => $req->subsection_id,
+            'description' => $req->description,
+            'screenShot' => $screenShot_path,
+        ]);
+
+        return $this->response(['msg' => 'Resource updated successfully', 'status' => 'success']);
 
     }
 

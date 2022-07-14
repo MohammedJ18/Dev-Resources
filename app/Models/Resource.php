@@ -11,7 +11,7 @@ class Resource extends Model
 {
     use HasFactory;
     use HelperTrait;
-    protected $fillable = ['category_id', 'subsection_id', 'user_id', 'name', 'description', 'icon', 'screenShot', 'state'];
+    protected $fillable = ['category_id', 'subsection_id', 'user_id', 'name', 'description', 'screenShot', 'state'];
     protected $appends = [
         'image_url',
     ];
