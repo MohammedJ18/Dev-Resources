@@ -95,7 +95,6 @@ class ResourceController extends Controller
 
         return $this->responseFormat(['msg' => 'Resource updated successfully', 'status' => 'success', 'data' => $resource]);
 
-
     }
 
     public function deleteResource(Request $req)
@@ -140,7 +139,7 @@ class ResourceController extends Controller
         else return $this->responseFormat(['msg' => 'Resource accepted field', 'status' => 'error']);
 
     }
-    
+
     // Reject Resource
     public function rejectResource(Request $req)
     {
