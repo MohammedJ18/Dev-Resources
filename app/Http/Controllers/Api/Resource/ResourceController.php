@@ -34,7 +34,6 @@ class ResourceController extends Controller
         return responseFormat(['resources' => $resources], "success", 200);
     }
 
-    
     //add resource
     public function addResource(Request $req)
     {
