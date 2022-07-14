@@ -41,7 +41,7 @@ Route::middleware(['jwt'])->group(function () {
             Route::post('/edit', 'editCategory');
             Route::post('/delete', 'deleteCategory');
         });
-        
+
     });
 
     //Category
@@ -56,6 +56,9 @@ Route::middleware(['jwt'])->group(function () {
         Route::post('/add', 'addResource');
         Route::post('/edit', 'editResource');
         Route::post('/delete', 'deleteResource');
+        Route::post('/acceptResource', 'acceptResource');
+        Route::post('/rejectResource', 'rejectResource');
+
     });
 
     // Link
