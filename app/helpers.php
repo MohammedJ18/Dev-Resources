@@ -1,27 +1,25 @@
 <?php
-use App\Models\Category;
+
 use App\Models\Resource;
 use App\Models\Link;
 
-
 function user_category($id = null , $name = null){
     if($id)
-        $category = Category::where('user_id', $id)->exists();
+        $category = auth()->user()->categories()->with('resources')->exists();
     else if($name)
-        $category = Category::where('name', $name)->exists();
+        $category = auth()->user()->categories()->with('resources')->where('name', $name)->exists();
     else
-        $category = Category::with('resources')->where('user_id', auth()->id())->get();
+        $category = auth()->user()->categories()->with('resources')->get();
 
     return $category;
 }
 
 function user_link($id = null , $url = null){
     if($id)
-        $link = Link::where('resource_id', $id)->exists();
+        $link = Link::where('id', $id)->exists();
     else if($url)
         $link = Link::where('url', $url)->exists();
     else
-        $link = Link::with('resource')->where('resource_id', auth()->id())->get();
-    // $links = Link::with('resource')->get();
+        $link = Link::with('resource')->get();
     return $link;
 }
