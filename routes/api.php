@@ -31,14 +31,23 @@ use Illuminate\Support\Facades\Artisan;
 
 Route::middleware(['jwt'])->group(function () {
 
+    Route::middleware(['admin'])->group(function () {
+
+
+        //Category
+        Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+            Route::get('AdminCategories/{id}', 'getCategory');
+            Route::post('/add', 'addCategory');
+            Route::post('/edit', 'editCategory');
+            Route::post('/delete', 'deleteCategory');
+        });
+        
+    });
+
     //Category
     Route::controller(CategoryController::class)->prefix('categories')->group(function () {
         Route::get('/', 'getCategories');
         Route::get('/{id}', 'getCategory');
-        Route::get('AdminCategories/{id}', 'getCategory');
-        Route::post('/add', 'addCategory');
-        Route::post('/edit', 'editCategory');
-        Route::post('/delete', 'deleteCategory');
     });
 
     // Resources
