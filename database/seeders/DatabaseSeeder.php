@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             SubSectionSeeder::class,
             ResourceSeeder::class,
             // TagSeeder::class,
-            // LinkSeeder::class
+            LinkSeeder::class
         ]);
     }
 }
