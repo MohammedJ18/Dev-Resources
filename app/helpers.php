@@ -10,7 +10,6 @@ function user_category($id = null , $name = null){
         $category = auth()->user()->categories()->with('resources')->where('name', $name)->exists();
     else
         $category = auth()->user()->categories()->with('resources')->get();
-
     return $category;
 }
 
