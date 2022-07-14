@@ -12,7 +12,6 @@ use App\Http\Controllers\Api\{
 
     ### Link ###
     Link\LinkController,
-
 };
 
 use Illuminate\Http\Request;
@@ -30,7 +29,7 @@ use Illuminate\Support\Facades\Artisan;
 */
 
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['jwt'])->group(function () {
 
     //Category
     Route::controller(CategoryController::class)->prefix('categories')->group(function () {
@@ -57,18 +56,18 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/edit', 'editLink');
         Route::post('/delete', 'deleteLink');
     });
+
+    // Auth
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('/logout', [AuthController::class, 'logout']);
+        Route::post('/refresh', [AuthController::class, 'refresh']);
+        Route::get('/get-user', [AuthController::class, 'getUser']);
+    });
 });
 
 
-
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-], function ($router) {
+//register & login routes
+Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    Route::post('/refresh', [AuthController::class, 'refresh']);
-    Route::get('/get-user', [AuthController::class, 'getUser']);    
 });
-
