@@ -52,7 +52,10 @@ Route::middleware(['jwt'])->group(function () {
 
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
-        Route::get('/', 'getResource');
+        Route::get('/', 'getResourcesCount');
+        Route::post('/getCategoryResources', 'getCategoryResources');
+        Route::post('/getCategoryResourcesCount', 'getCategoryResourcesCount');
+        Route::get('/getLastSixResources', 'getLastSixResources');
         Route::post('/add', 'addResource');
         Route::post('/edit', 'editResource');
         Route::post('/delete', 'deleteResource');
