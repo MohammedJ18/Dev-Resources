@@ -17,15 +17,8 @@ class LinkSeeder extends Seeder
      */
     public function run()
     {
-        $resource = Resource::get();
+        //resource_id: 1
+        
 
-        foreach($resource as $resource) {
-            for($i = 1 ; $i <= 2 ; $i++) {
-                Link::create([
-                    'url' => 'https://www.google.com/search?q=',
-                    'resource_id' => $resource->id,
-                ]);
-            }
-        }
     }
 }
