@@ -59,15 +59,28 @@ class LinkController extends Controller
             return response()->json(['message' => 'Link not found'], 404);
 
         $link = Link::find($req->id);
-        $link->url = $req->url;
-        $link->save();
-        return response()->json(['link'=> $link], 201);
 
-            // $link->edit([
-            //     'url' => $req->url,
-            // ]);
+            $link->edit([
+                'url' => $req->url,
+            ]);
 
-            // return response()->json(['link'=> $link], 201);
+            return response()->json(['link'=> $link], 201);
+    }
+
+    public function deleteLink(Request $req){
+        $validator = Validator::make($req->all(), [
+            'id'           => 'required',
+        ]);
+
+        if ($validator->fails()){
+            return response()->json(['message' => $validator->errors()], 400);
+        }
+        if(!user_link($req->id))
+            return response()->json(['message' => 'Link not found'], 404);
+
+        $link = Link::find($req->id);
+        $link->delete();
+        return response()->json(['message'=> 'Link deleted'], 200);
     }
 
 }
