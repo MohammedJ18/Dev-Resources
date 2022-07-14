@@ -14,13 +14,28 @@ class ResourceController extends Controller
 {
     use WithFileUploads;
     use HelperTrait;
-    public function getResource()
-    {
-        $resources = auth()->user()->resources()->with(['category', 'subsection'])->get();
-        return responseFormat()->json($resources);
 
+    //get resources count method
+    public function getResourcesCount()
+    {
+        $resources = Resource::count();
+        return responseFormat(['resources' => $resources], "success", 200);
+    }
+    //Category Resources
+    public function getCategoryResources($id)
+    {
+        $resources = Resource::where('category_id', $id)->get();
+        return responseFormat(['resources' => $resources], "success", 200);
+    }
+    //The last six resources method
+    public function getLastSixResources()
+    {
+        $resources = Resource::orderBy('id', 'desc')->take(6)->get();
+        return responseFormat(['resources' => $resources], "success", 200);
     }
 
+    
+    //add resource
     public function addResource(Request $req)
     {
         $validator = \Validator::make($req->all(), [
@@ -33,7 +48,7 @@ class ResourceController extends Controller
         if ($validator->fails()) {
             return responseFormat()->error($validator->errors()->first());
         }
-        if( $req->screenShot){
+        if ($req->screenShot) {
             $ext = $req->screenShot->extension();
             $name = \Str::random(10) . '.' . $ext;
             $screenShot_path = 'resources/screenShots/';
@@ -58,7 +73,7 @@ class ResourceController extends Controller
             return $this->responseFormat(['msg' => 'Something went wrong', 'status' => 'error']);
         }
     }
-
+    //edit resource
     public function editResource(Request $req)
     {
 
@@ -73,7 +88,7 @@ class ResourceController extends Controller
             return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
         }
 
-        if( $req->screenShot){
+        if ($req->screenShot) {
             $ext = $req->screenShot->extension();
             $name = \Str::random(10) . '.' . $ext;
             $screenShot_path = 'resources/screenShots/';
@@ -94,10 +109,8 @@ class ResourceController extends Controller
         ]);
 
         return $this->responseFormat(['msg' => 'Resource updated successfully', 'status' => 'success', 'data' => $resource]);
-
-
     }
-
+    //delete resource
     public function deleteResource(Request $req)
     {
         $validator = \Validator::make($req->all(), [
@@ -110,14 +123,11 @@ class ResourceController extends Controller
 
         $resource = auth()->user()->resources()->find($req->id);
 
-        if($resource){
+        if ($resource) {
             $resource->delete();
-        return $this->responseFormat(['msg' => 'Resource deleted successfully', 'status' => 'success']);
-        }
-        else return $this->responseFormat(['msg' => 'Resource deleted field', 'status' => 'error']);
-
+            return $this->responseFormat(['msg' => 'Resource deleted successfully', 'status' => 'success']);
+        } else return $this->responseFormat(['msg' => 'Resource deleted field', 'status' => 'error']);
     }
-
     //Accept Resource
     public function acceptResource(Request $req)
     {
@@ -131,16 +141,13 @@ class ResourceController extends Controller
 
         $resource = auth()->user()->resources()->find($req->id);
 
-        if($resource){
+        if ($resource) {
             $resource->update([
                 'state' => true,
             ]);
-        return $this->responseFormat(['msg' => 'Resource accepted successfully', 'status' => 'success', 'data' => $resource]);
-        }
-        else return $this->responseFormat(['msg' => 'Resource accepted field', 'status' => 'error']);
-
+            return $this->responseFormat(['msg' => 'Resource accepted successfully', 'status' => 'success', 'data' => $resource]);
+        } else return $this->responseFormat(['msg' => 'Resource accepted field', 'status' => 'error']);
     }
-    
     // Reject Resource
     public function rejectResource(Request $req)
     {
@@ -154,15 +161,11 @@ class ResourceController extends Controller
 
         $resource = auth()->user()->resources()->find($req->id);
 
-        if($resource){
+        if ($resource) {
             $resource->update([
                 'state' => false,
             ]);
-        return $this->responseFormat(['msg' => 'Resource rejected successfully', 'status' => 'success', 'data' => $resource]);
-        }
-        else return $this->responseFormat(['msg' => 'Resource rejected field', 'status' => 'error']);
-
+            return $this->responseFormat(['msg' => 'Resource rejected successfully', 'status' => 'success', 'data' => $resource]);
+        } else return $this->responseFormat(['msg' => 'Resource rejected field', 'status' => 'error']);
     }
-
-
 }
