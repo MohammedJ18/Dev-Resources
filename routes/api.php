@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\Api\{
     ### Auth ###
-    Auth\RegisterController,
-    Auth\LoginController,
-    Auth\LogoutController,
+    Auth\AuthController,
 
     ### Category ###
     Category\CategoryController,
@@ -16,6 +14,7 @@ use App\Http\Controllers\Api\{
     Link\LinkController,
 
 };
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -30,18 +29,6 @@ use Illuminate\Support\Facades\Artisan;
 |
 */
 
-//Register
-Route::post('/register', [RegisterController::class, 'register']);
-
-//Login
-Route::controller(LoginController::class)->middleware(['api'])->group(function () {
-    Route::post('/login', 'login');
-    Route::post('/refresh', 'refresh');
-    Route::get('/user', 'me');
-});
-
-//Logout
-Route::middleware(['auth'])->post('/logout',[LoginController::class, 'logout'] );
 
 Route::middleware(['auth'])->group(function () {
 
@@ -72,4 +59,16 @@ Route::middleware(['auth'])->group(function () {
     });
 });
 
+
+
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'auth'
+], function ($router) {
+    Route::post('/login', [AuthController::class, 'login']);
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/refresh', [AuthController::class, 'refresh']);
+    Route::get('/get-user', [AuthController::class, 'getUser']);    
+});
 
