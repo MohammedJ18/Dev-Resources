@@ -11,7 +11,7 @@ class Resource extends Model
 {
     use HasFactory;
     use HelperTrait;
-    protected $fillable = ['name', 'description', 'icon', 'screenShot','category_id'];
+    protected $fillable = ['category_id', 'subsection_id', 'user_id', 'name', 'description', 'icon', 'screenShot', 'state'];
     protected $appends = [
         'image_url',
     ];
@@ -20,10 +20,21 @@ class Resource extends Model
         'screenShot',
     ];
 
-    // Relationship
+    ### Relationship ##
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function subsection()
+    {
+        return $this->belongsTo(SubSection::class);
     }
 
     public function links()
@@ -36,10 +47,9 @@ class Resource extends Model
         return $this->hasMany(Tag::class);
     }
 
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
+
+
+    ### End Relationship ###
 
 
     //Accessor

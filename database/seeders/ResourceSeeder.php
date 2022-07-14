@@ -16,27 +16,7 @@ class ResourceSeeder extends Seeder
      */
     public function run()
     {
-        $cate = Category::get();
-        foreach ($cate as $item ) {
-            for($i = 1 ; $i <= 2 ; $i++)
-                Resource::create([
-                    'name' => 'Resource '.$i,
-                    'description' => 'Description '.$i,
-                    'icon' => 'Icon '.$i,
-                    'screenShot' => 'ScreenShot '.$i,
-                    'category_id' => $item->id,
-                ]);
-        }
-        // ### id = 1 ###
-        // Resource::create([
-        //     'user_id' => 1,
-        //     'category_id' => 1,
-        //     'name' => ' html',
-        //     'description'=>'html resource',
-        //     'icon' => "html ",
-        //     'screenShot' => "html ",
-        //     'state' => true,
-
-        // ]);
+        // category_id: 1
+        
     }
 }

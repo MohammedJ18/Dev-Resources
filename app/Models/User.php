@@ -94,6 +94,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(Category::class);
     }
 
+    public function subsections()
+    {
+        return $this->hasMany(SubSection::class);
+    }
+
     public function resources()
     {
         return $this->hasMany(Resource::class);
