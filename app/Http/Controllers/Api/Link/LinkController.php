@@ -10,7 +10,6 @@ use App\Models\Link;
 class LinkController extends Controller
 {
     public function getLinks(){
-
         $links = user_link();
         return response()->json($links);
     }
