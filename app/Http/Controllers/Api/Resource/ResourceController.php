@@ -16,7 +16,7 @@ class ResourceController extends Controller
     use HelperTrait;
     public function getResource()
     {
-        $resources = Resource::with(['category'])->get();
+        $resources = auth()->user()->resources()->with(['category'])->get();
         return response()->json($resources);
 
     }
@@ -47,9 +47,10 @@ class ResourceController extends Controller
             'description' => $req->description,
             'icon' => $req->icon,
             'screenShot' => $screenShot_path,
+            'state' => false,
         ];
 
-        $insert = Resource::create($data);
+        $insert = auth()->user()->resources()->create($data);
 
         if ($insert) {
             return $this->response(['msg' => 'Resource added successfully', 'status' => 'success']);
@@ -80,16 +81,21 @@ class ResourceController extends Controller
             $screenShot_path .= $name;
         }
 
-        $resource = Resource::find($req->id);
-        $resource->update([
-            'name' => $req->name,
-            'category_id' => $req->category_id,
-            'description' => $req->description,
-            'icon' => $req->icon,
-            'screenShot' => $screenShot_path,
-        ]);
+        $resource = auth()->user()->resources()->find($req->id);
 
-        return $this->response(['msg' => 'Resource updated successfully', 'status' => 'success', $resource]);
+        if ($resource) {
+            $resource->update([
+                'name' => $req->name,
+                'category_id' => $req->category_id,
+                'description' => $req->description,
+                'icon' => $req->icon,
+                'screenShot' => $screenShot_path,
+            ]);
+            return $this->response(['msg' => 'Resource updated successfully', 'status' => 'success']);
+        } else {
+            return $this->response(['msg' => 'Something went wrong', 'status' => 'error']);
+        }
+
     }
 
     public function deleteResource(Request $req)
@@ -102,8 +108,13 @@ class ResourceController extends Controller
             return $this->response(['msg' => $validator->errors()->first(), 'status' => 'error']);
         }
 
-        $resource = Resource::find($req->id);
-        $resource->delete();
+        $resource = auth()->user()->resources()->find($req->id);
+
+        if($resource){
+            $resource->delete();
         return $this->response(['msg' => 'Resource deleted successfully', 'status' => 'success']);
+        }
+        else return $this->response(['msg' => 'Resource deleted field', 'status' => 'error']);
+
     }
 }

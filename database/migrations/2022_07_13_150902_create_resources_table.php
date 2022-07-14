@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->string('name', 100);
 			$table->text('description')->nullable();
 			$table->string('icon')->nullable();
 			$table->string('screenShot')->nullable();
+            $table->boolean('state')->default(false);
             $table->timestamps();
         });
     }
