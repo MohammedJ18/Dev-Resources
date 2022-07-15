@@ -5,14 +5,14 @@ namespace App\Traits;
 
 trait HelperTrait
 {
+
     public function responseFormat($data = null, $msg = null, $status = null)
     {
-        $array = [
+        $response = [
             'data' => $data,
-            'message' => $msg,
+            'msg' => $msg,
             'status' => $status,
         ];
-
-        return response()->json($array);
+        return $response;
     }
 }
