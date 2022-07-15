@@ -19,7 +19,7 @@ class CategoryController extends Controller
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
-    public function getcategory($id)
+    public function getCategory($id)
     {
         $category = Category::with('resources')->find($id);
         if (!$category)
@@ -31,6 +31,7 @@ class CategoryController extends Controller
     {
         $categories = Category::withCount('resources')->with('subsections')->get();
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
+
     }
 
     //get admin categories
