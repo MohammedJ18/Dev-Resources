@@ -13,11 +13,11 @@ class CategoryController extends Controller
 {
     use HelperTrait;
 
-    //get categories
+    //get categories with resources count with subsections count
     public function getCategories()
     {
-        $categories = Category::with('resources')->get();
-        return $this->responseFormat($categories, 'success', 200);
+        $categories = Category::with('resourcesCount', 'subsectionsCount')->get();
+        return response()->json($categories);
     }
 
     //get category
