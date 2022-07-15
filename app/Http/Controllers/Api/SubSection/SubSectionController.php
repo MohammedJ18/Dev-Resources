@@ -73,6 +73,4 @@ class SubSectionController extends Controller
         }
         return $this->responseFormat($subSection, 'Sub Section found successfully', 200);
     }
-
-
 }

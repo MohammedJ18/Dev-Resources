@@ -67,7 +67,7 @@ Route::middleware(['jwt'])->group(function () {
 Route::controller(CategoryController::class)->prefix('categories')->group(function () {
     Route::get('/', 'getCategories');
     Route::get('/{id}', 'getCategory');
-    Route::get('/withcount' , 'withCount');
+    Route::get('/withcount', 'withCount');
 });
 
 // Resources
