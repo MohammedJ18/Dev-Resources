@@ -26,14 +26,14 @@ class ResourceController extends Controller
     //The last six resources method
     public function getLastSixResources()
     {
-        $resources = Resource::orderBy('id', 'desc')->take(6)->get();
+        $resources = Resource::orderBy('id', 'desc')->take(6)->with('category')->with('subsection')->get();
         return $this->responseFormat($resources, 'Resources have been found successfully', 200);
     }
 
     //add resource
     public function addResource(Request $req)
     {
-        $validator = \Validator::make($req->all(), [
+        $validator = Validator::make($req->all(), [
             'category_id' => 'required|exists:categories,id',
             'subsection_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
