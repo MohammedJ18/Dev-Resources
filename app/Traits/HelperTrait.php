@@ -13,6 +13,6 @@ trait HelperTrait
             'msg' => $msg,
             'status' => $status,
         ];
-        return $response;
+        return response()->json($response, $status);
     }
 }
