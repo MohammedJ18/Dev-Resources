@@ -38,7 +38,6 @@ class ResourceController extends Controller
     {
         $resources = Resource::orderBy('id', 'desc')->take(6)->get();
         return $this->responseFormat($resources, 'Resources Count', 200);
-
     }
 
 
