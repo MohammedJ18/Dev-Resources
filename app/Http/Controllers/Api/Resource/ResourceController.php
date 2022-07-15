@@ -19,20 +19,27 @@ class ResourceController extends Controller
     public function getResourcesCount()
     {
         $resources = Resource::count();
-        return responseFormat(['resources' => $resources], "success", 200);
+        return $this->responseFormat($resources, 'Resources Count', 200);
     }
     //Category Resources
-    public function getCategoryResources($id)
+    public function getCategoryResources(Request $req)
     {
-        $resources = Resource::where('category_id', $id)->get();
-        return responseFormat(['resources' => $resources], "success", 200);
+        $resources = Resource::where('category_id', $req->id)->get();
+        return  $this->responseFormat($resources, "success", 200);
+    }
+    //Category Resources Count
+    public function getCategoryResourcesCount(Request $req)
+    {
+        $resources = Resource::where('category_id', $req->id)->count();
+        return $this->responseFormat($resources, "success", 200);
     }
     //The last six resources method
     public function getLastSixResources()
     {
         $resources = Resource::orderBy('id', 'desc')->take(6)->get();
-        return responseFormat(['resources' => $resources], "success", 200);
+        return $this->responseFormat($resources, 'Resources Count', 200);
     }
+
 
     //add resource
     public function addResource(Request $req)
@@ -45,15 +52,15 @@ class ResourceController extends Controller
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
-            return responseFormat()->error($validator->errors()->first());
+            return $this->responseFormat([], $this->error($validator->errors()->first()), 400);
         }
-        if ($req->screenShot) {
-            $ext = $req->screenShot->extension();
-            $name = \Str::random(10) . '.' . $ext;
-            $screenShot_path = 'resources/screenShots/';
-            $req->screenShot->storeAs('public/' . $screenShot_path, $name);
-            $screenShot_path .= $name;
-        }
+
+        $ext = $req->screenShot->extension();
+        $name = \Str::random(10) . '.' . $ext;
+        $screenShot_path = 'resources/screenShots/';
+        $req->screenShot->storeAs('public/' . $screenShot_path, $name);
+        $screenShot_path .= $name;
+
 
         $data = [
             'category_id' => $req->category_id,
