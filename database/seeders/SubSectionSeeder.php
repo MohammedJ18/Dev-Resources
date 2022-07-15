@@ -18,21 +18,18 @@ class SubSectionSeeder extends Seeder
         // category_id: 1
         ### id = 1 ###
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 1,
             'name' => ' html',
         ]);
 
         ### id = 2 ###
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 1,
             'name' => ' css',
         ]);
 
         ### id = 3 ###  
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 1,
             'name' => ' javascript',
         ]);
@@ -40,21 +37,18 @@ class SubSectionSeeder extends Seeder
         // category_id: 2
         ### id = 4 ###
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 2,
             'name' => ' php',
         ]);
 
         ### id = 5 ###  
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 2,
             'name' => ' mysql',
         ]);
 
         ### id = 6 ###
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 2,
             'name' => ' mongo',
         ]);
@@ -62,21 +56,18 @@ class SubSectionSeeder extends Seeder
         // category_id: 3
         ### id = 7 ###
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 3,
             'name' => ' java',
         ]);
 
         ### id = 8 ###
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 3,
             'name' => ' c#',
         ]);
 
         ### id = 9 ###
         SubSection::create([
-            'user_id' => 1,
             'category_id' => 3,
             'name' => ' c++',
         ]);

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\HelperTrait;
 use App\Models\Resource;
+use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 
@@ -21,25 +22,13 @@ class ResourceController extends Controller
         $resources = Resource::count();
         return $this->responseFormat($resources, 'Resources Count', 200);
     }
-    //Category Resources
-    public function getCategoryResources(Request $req)
-    {
-        $resources = Resource::where('category_id', $req->id)->get();
-        return  $this->responseFormat($resources, "success", 200);
-    }
-    //Category Resources Count
-    public function getCategoryResourcesCount(Request $req)
-    {
-        $resources = Resource::where('category_id', $req->id)->count();
-        return $this->responseFormat($resources, "success", 200);
-    }
+
     //The last six resources method
     public function getLastSixResources()
     {
         $resources = Resource::orderBy('id', 'desc')->take(6)->get();
-        return $this->responseFormat($resources, 'Resources Count', 200);
+        return $this->responseFormat($resources, 'Resources have been found successfully', 200);
     }
-
 
     //add resource
     public function addResource(Request $req)
@@ -52,7 +41,7 @@ class ResourceController extends Controller
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->responseFormat([], $this->error($validator->errors()->first()), 400);
+            return $this->responseFormat([], $validator->errors(), 400);
         }
 
         $ext = $req->screenShot->extension();
@@ -71,19 +60,19 @@ class ResourceController extends Controller
             'state' => false,
         ];
 
-        $insert = auth()->user()->resources()->create($data);
-
+        $insert = Resource::create($data);
         if ($insert) {
-            return $this->responseFormat(['msg' => 'Resource added successfully', 'status' => 'success', 'data' => $insert]);
+            return $this->responseFormat($insert, 'Resource Added Successfully', 200);
         } else {
-            return $this->responseFormat(['msg' => 'Something went wrong', 'status' => 'error']);
+            return $this->responseFormat([], 'Resource Not Added', 400);
         }
     }
+
     //edit resource
-    public function editResource(Request $req)
+    public function updateResource($id, Request $req)
     {
 
-        $validator = \Validator::make($req->all(), [
+        $validator = Validator::make($req->all(), [
             'category_id' => 'required|exists:categories,id',
             'subsection_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
@@ -91,7 +80,7 @@ class ResourceController extends Controller
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
+            return $this->responseFormat([], $validator->errors(), 400);
         }
 
         if ($req->screenShot) {
@@ -102,9 +91,9 @@ class ResourceController extends Controller
             $screenShot_path .= $name;
         }
 
-        $resource = auth()->user()->resources()->find($req->id);
+        $resource = Resource::find($id);
         if (!$resource)
-            return $this->responseFormat(['msg' => 'Something went wrong',  'status' => 'error']);
+            return $this->responseFormat([], 'Resource Not Found', 404);
 
         $resource->update([
             'name' => $req->name,
@@ -113,65 +102,31 @@ class ResourceController extends Controller
             'description' => $req->description,
             'screenShot' => $screenShot_path,
         ]);
-
-        return $this->responseFormat(['msg' => 'Resource updated successfully', 'status' => 'success', 'data' => $resource]);
+        return $this->responseFormat($resource, 'Resource Updated Successfully', 200);
     }
+
     //delete resource
-    public function deleteResource(Request $req)
+    public function deleteResource($id)
     {
-        $validator = \Validator::make($req->all(), [
-            'id' => 'required',
-        ]);
+        $resource = Resource::find($id);
 
-        if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
-        }
-
-        $resource = auth()->user()->resources()->find($req->id);
-
-        if ($resource) {
-            $resource->delete();
-            return $this->responseFormat(['msg' => 'Resource deleted successfully', 'status' => 'success']);
-        } else return $this->responseFormat(['msg' => 'Resource deleted field', 'status' => 'error']);
+        if (!$resource)
+            return $this->responseFormat([], 'Resource Not Found', 404);
+        $resource->delete();
+        return $this->responseFormat([], 'Resource Deleted Successfully', 200);
     }
+
     //Accept Resource
-    public function acceptResource(Request $req)
+    public function acceptResource($id)
     {
-        $validator = \Validator::make($req->all(), [
-            'id' => 'required',
-        ]);
+        $resource = Resource::find($id);
+        if (!$resource)
+            return $this->responseFormat([], 'Resource Not Found', 404);
 
-        if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
+        if ($resource->state == true) {
+            return $this->responseFormat([], 'Resource Already Accepted', 400);
         }
-
-        $resource = auth()->user()->resources()->find($req->id);
-
-        if ($resource) {
-            $resource->update([
-                'state' => true,
-            ]);
-            return $this->responseFormat(['msg' => 'Resource accepted successfully', 'status' => 'success', 'data' => $resource]);
-        } else return $this->responseFormat(['msg' => 'Resource accepted field', 'status' => 'error']);
-    }
-    // Reject Resource
-    public function rejectResource(Request $req)
-    {
-        $validator = \Validator::make($req->all(), [
-            'id' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
-        }
-
-        $resource = auth()->user()->resources()->find($req->id);
-
-        if ($resource) {
-            $resource->update([
-                'state' => false,
-            ]);
-            return $this->responseFormat(['msg' => 'Resource rejected successfully', 'status' => 'success', 'data' => $resource]);
-        } else return $this->responseFormat(['msg' => 'Resource rejected field', 'status' => 'error']);
+        $resource->update(['state' => true]);
+        return $this->responseFormat($resource, 'Resource Accepted Successfully', 200);
     }
 }

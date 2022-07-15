@@ -30,34 +30,19 @@ use Illuminate\Support\Facades\Artisan;
 
 
 Route::middleware(['jwt'])->group(function () {
-
-    Route::middleware(['admin'])->group(function () {
-
-
-        //Category
-        Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-            Route::get('/', 'getCategories');
-            Route::get('/{id}', 'getCategory');
-            Route::get('/Admin/{id}', 'getAdminCategories');
-            Route::post('/add', 'addCategory');
-            Route::post('/edit', 'editCategory');
-            Route::post('/delete', 'deleteCategory');
-        });
-
+    //Category
+    Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+        Route::post('/add', 'addCategory');
+        Route::post('/edit', 'editCategory');
+        Route::post('/delete', 'deleteCategory');
     });
 
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
-        Route::get('/', 'getResourcesCount');
-        Route::post('/getCategoryResources', 'getCategoryResources');
-        Route::post('/getCategoryResourcesCount', 'getCategoryResourcesCount');
-        Route::get('/getLastSixResources', 'getLastSixResources');
-        Route::post('/add', 'addResource');
-        Route::post('/edit', 'editResource');
-        Route::post('/delete', 'deleteResource');
-        Route::post('/acceptResource', 'acceptResource');
-        Route::post('/rejectResource', 'rejectResource');
 
+        Route::post('/update/{id}', 'updateResource');
+        Route::post('/delete/{id}', 'deleteResource');
+        Route::post('/acceptResource/{id}', 'acceptResource');
     });
 
     // Link
@@ -77,6 +62,19 @@ Route::middleware(['jwt'])->group(function () {
     });
 });
 
+
+//Category
+Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+    Route::get('/', 'getCategories');
+    Route::get('/{id}', 'getCategory');
+});
+
+// Resources
+Route::controller(ResourceController::class)->prefix('resources')->group(function () {
+    Route::get('/', 'getResourcesCount');
+    Route::get('/getLastSixResources', 'getLastSixResources');
+    Route::post('/add', 'addResource');
+});
 
 //register & login routes
 Route::group(['prefix' => 'auth'], function () {

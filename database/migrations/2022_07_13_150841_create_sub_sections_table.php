@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('sub_sections', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
             $table->string('name', 100);
             $table->timestamps();
