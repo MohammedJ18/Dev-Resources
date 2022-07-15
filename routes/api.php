@@ -33,8 +33,8 @@ Route::middleware(['jwt'])->group(function () {
     //Category
     Route::controller(CategoryController::class)->prefix('categories')->group(function () {
         Route::post('/add', 'addCategory');
-        Route::post('/update/{id}', 'updateCategory');
-        Route::post('/delete/{id}', 'deleteCategory');
+        Route::post('/edit', 'updateCategory');
+        Route::post('/delete', 'deleteCategory');
     });
 
     // Resources
