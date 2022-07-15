@@ -20,7 +20,7 @@ class CategoryController extends Controller
     //get category
     public function getcategory($id)
     {
-        $category = Category::with('resources')->find($id);
+        $category = auth()->user()->categories()->find($id);
         if (!$category)
             return response()->json(['message' => 'Category not found'], 404);
         return response()->json($category);
@@ -34,7 +34,7 @@ class CategoryController extends Controller
             return response()->json(['message' => 'User not found'], 404);
         if(!$user->categories()->exists())
             return response()->json(['message' => 'User dont have category'], 404);
-        $categories = Category::where('user_id', $id)->get();
+        $categories = auth()->user()->categories;
 
         return response()->json($categories);
     }
