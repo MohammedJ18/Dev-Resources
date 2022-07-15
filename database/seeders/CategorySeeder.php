@@ -15,13 +15,14 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        
+
             for($i = 1 ; $i <= 3 ; $i++) {
                 Category::create([
                     'name' => 'Category '.$i,
-                    
+                    'image' => 'resources/image/tHPgKMhLjK.jpg',
+
                 ]);
             }
-        
+
     }
 }

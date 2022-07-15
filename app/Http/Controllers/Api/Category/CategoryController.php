@@ -5,84 +5,100 @@ namespace App\Http\Controllers\Api\Category;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Traits\HelperTrait;
 use App\Models\Category;
-use App\Models\User;
 
 class CategoryController extends Controller
 {
-    //get categories
+
+    use HelperTrait;
+
     public function getCategories()
     {
         $categories = Category::with('resources')->get();
-        return response()->json($categories);
+        return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
-    //get category
     public function getcategory($id)
     {
-        $category = auth()->user()->categories()->find($id);
+        $category = Category::with('resources')->find($id);
         if (!$category)
-            return response()->json(['message' => 'Category not found'], 404);
-        return response()->json($category);
+            return $this->responseFormat([], 'Category not found', 404);
+            return $this->responseFormat($category, 'Category has been found successfully', 200);
+    }
+    //get all categories with resources count with sub sections count
+    public function withCount()
+    {
+        $categories = Category::with('resources')->get();
+        return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
     //get admin categories
-    public function getAdminCategories($id)
-    {
-        $user = User::find($id);
-        if(!$user)
-            return response()->json(['message' => 'User not found'], 404);
-        if(!$user->categories()->exists())
-            return response()->json(['message' => 'User dont have category'], 404);
-        $categories = auth()->user()->categories;
+    // public function getAdminCategories($id)
+    // {
+    //     $user = User::find($id);
+    //     if(!$user)
+    //         return response()->json(['message' => 'User not found'], 404);
+    //     if(!$user->categories()->exists())
+    //         return response()->json(['message' => 'User dont have category'], 404);
+    //     $categories = auth()->user()->categories;
 
-        return response()->json($categories);
-    }
-
+    //     return response()->json($categories);
+    // }
 
     public function addCategory(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'name'         => 'required',
+            'name'         => 'required | unique:categories',
+            'image'        => 'required',
         ]);
 
         if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
-        if ($category->where('name', $req->name)->exists())
-            return response()->json(['message' => 'category is  already taken'], 400);
+        $ext = $req->image->extension();
+        $name = \Str::random(10) . '.' . $ext;
+        $image_path = 'resources/image/';
+        $req->image->storeAs('public/' . $image_path, $name);
+        $image_path .= $name;
 
-        $user_id = auth()->id();
-        $category = $category->create([
+        $category = Category::create([
             'name' => $req->name,
-            'user_id' => $user_id,
+            'image' => $image_path,
         ]);
 
-        return response()->json(['category' => $category], 201);
+        return $this->responseFormat($category, 'Category has been added successfully', 200);
     }
 
     public function editCategory(Request $req)
     {
         $validator = Validator::make($req->all(), [
             'id'           => 'required',
-            'name'         => 'required',
+            'name'         => 'required | unique:categories',
+            'image'        => 'required',
         ]);
 
         if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
-            $category = auth()->user()->categories()->find($req->id);
+            $category = Category::find($req->id);
         if (!$category)
-            return response()->json(['message' => 'Category not found'], 404);
+            return $this->responseFormat([], 'Category not found', 404);
 
-        if ($category->where('name', $req->name)->exists())
-            return response()->json(['message' => "Category '$req->name' already exists"], 400);
+            if ($req->image) {
+                $ext = $req->image->extension();
+                $name = \Str::random(10) . '.' . $ext;
+                $image_path = 'resources/image/';
+                $req->image->storeAs('public/' . $image_path, $name);
+                $image_path .= $name;
+            }
 
         $category->update([
             'name' => $req->name,
+            'image' => $image_path,
         ]);
 
-        return response()->json(['category' => $category], 200);
+        return $this->responseFormat($category, 'Category has been updated successfully', 200);
     }
 
     public function deleteCategory(Request $req)
@@ -92,15 +108,15 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
-            $category = auth()->user()->categories()->find($req->id);
+            $category = Category::find($req->id);
 
         if (!$category)
-            return response()->json(['message' => 'Category not found'], 404);
+            return $this->responseFormat([], 'Category not found', 404);
 
         $category->delete();
 
-        return response()->json(['message' => 'Category deleted'], 200);
+        return $this->responseFormat($category, 'Category has been deleted successfully', 200);
     }
 }
