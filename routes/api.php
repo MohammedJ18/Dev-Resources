@@ -36,18 +36,13 @@ Route::middleware(['jwt'])->group(function () {
         Route::post('/update', 'updateCategory');
         Route::post('/delete', 'deleteCategory');
     });
-    
+
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
-        Route::get('/', 'getResourcesCount');
-        Route::post('/getCategoryResources', 'getCategoryResources');
-        Route::post('/getCategoryResourcesCount', 'getCategoryResourcesCount');
-        Route::get('/getLastSixResources', 'getLastSixResources');
-        Route::post('/add', 'addResource');
+
         Route::post('/edit', 'editResource');
         Route::post('/delete', 'deleteResource');
         Route::post('/acceptResource', 'acceptResource');
-        Route::post('/rejectResource', 'rejectResource');
     });
 
     // Link
@@ -74,9 +69,15 @@ Route::controller(CategoryController::class)->prefix('categories')->group(functi
     Route::get('/{id}', 'getCategory');
 });
 
+// Resources
+Route::controller(ResourceController::class)->prefix('resources')->group(function () {
+    Route::get('/', 'getResourcesCount');
+    Route::get('/getLastSixResources', 'getLastSixResources');
+    Route::post('/add', 'addResource');
+});
+
 //register & login routes
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 });
-
