@@ -88,19 +88,6 @@ class User extends Authenticatable implements JWTSubject
         'profile_photo_url',
     ];
 
-    // Relationship
-    public function categories()
-    {
-        return $this->hasMany(Category::class);
-    }
-
-    public function subsections()
-    {
-        return $this->hasMany(SubSection::class);
-    }
-
-    public function resources()
-    {
-        return $this->hasMany(Resource::class);
-    }
+    
+   
 }

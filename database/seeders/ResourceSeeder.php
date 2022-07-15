@@ -19,7 +19,6 @@ class ResourceSeeder extends Seeder
         // category_id: 1 & subsection_id: 1
         ### id = 1 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 1,
             'subsection_id' => 1,
             'name' => ' html',
@@ -30,7 +29,6 @@ class ResourceSeeder extends Seeder
 
         ### id = 2 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 1,
             'subsection_id' => 1,
             'name' => ' css',
@@ -42,7 +40,6 @@ class ResourceSeeder extends Seeder
         // category_id: 1 & subsection_id: 2
         ### id = 3 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 1,
             'subsection_id' => 2,
             'name' => ' javascript',
@@ -54,7 +51,6 @@ class ResourceSeeder extends Seeder
         // category_id: 2 & subsection_id: 1
         ### id = 4 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 2,
             'subsection_id' => 1,
             'name' => ' php',
@@ -65,7 +61,6 @@ class ResourceSeeder extends Seeder
 
         ### id = 5 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 2,
             'subsection_id' => 1,
             'name' => ' mysql',
@@ -77,7 +72,6 @@ class ResourceSeeder extends Seeder
         //category_id: 2 & subsection_id: 2
         ### id = 6 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 2,
             'subsection_id' => 2,
             'name' => ' mongo',
@@ -89,7 +83,6 @@ class ResourceSeeder extends Seeder
         // category_id: 2 & subsection_id: 3
         ### id = 7 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 2,
             'subsection_id' => 3,
             'name' => ' java',
@@ -101,7 +94,6 @@ class ResourceSeeder extends Seeder
         // category_id: 3 & subsection_id: 1
         ### id = 8 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 3,
             'subsection_id' => 1,
             'name' => ' c#',
@@ -112,7 +104,6 @@ class ResourceSeeder extends Seeder
 
         ### id = 9 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 3,
             'subsection_id' => 1,
             'name' => ' c++',
@@ -124,7 +115,6 @@ class ResourceSeeder extends Seeder
         // category_id: 3 & subsection_id: 2
         ### id = 10 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 3,
             'subsection_id' => 2,
             'name' => ' javaScript',
@@ -136,7 +126,6 @@ class ResourceSeeder extends Seeder
         // category_id: 3 & subsection_id: 3
         ### id = 11 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 3,
             'subsection_id' => 3,
             'name' => ' python',
@@ -147,7 +136,6 @@ class ResourceSeeder extends Seeder
 
         ### id = 12 ###
         Resource::create([
-            'user_id' => 1,
             'category_id' => 3,
             'subsection_id' => 3,
             'name' => ' ruby',

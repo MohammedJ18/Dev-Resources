@@ -15,14 +15,13 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $users = User::where('is_admin', true)->get();
-        foreach ($users as $user) {
+        
             for($i = 1 ; $i <= 3 ; $i++) {
                 Category::create([
                     'name' => 'Category '.$i,
-                    'user_id' => $user->id,
+                    
                 ]);
             }
-        }
+        
     }
 }

@@ -21,18 +21,7 @@ class ResourceController extends Controller
         $resources = Resource::count();
         return $this->responseFormat($resources, 'Resources Count', 200);
     }
-    //Category Resources
-    public function getCategoryResources(Request $req)
-    {
-        $resources = Resource::where('category_id', $req->id)->get();
-        return  $this->responseFormat($resources, "success", 200);
-    }
-    //Category Resources Count
-    public function getCategoryResourcesCount(Request $req)
-    {
-        $resources = Resource::where('category_id', $req->id)->count();
-        return $this->responseFormat($resources, "success", 200);
-    }
+
     //The last six resources method
     public function getLastSixResources()
     {
@@ -154,24 +143,5 @@ class ResourceController extends Controller
             return $this->responseFormat(['msg' => 'Resource accepted successfully', 'status' => 'success', 'data' => $resource]);
         } else return $this->responseFormat(['msg' => 'Resource accepted field', 'status' => 'error']);
     }
-    // Reject Resource
-    public function rejectResource(Request $req)
-    {
-        $validator = \Validator::make($req->all(), [
-            'id' => 'required',
-        ]);
 
-        if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
-        }
-
-        $resource = auth()->user()->resources()->find($req->id);
-
-        if ($resource) {
-            $resource->update([
-                'state' => false,
-            ]);
-            return $this->responseFormat(['msg' => 'Resource rejected successfully', 'status' => 'success', 'data' => $resource]);
-        } else return $this->responseFormat(['msg' => 'Resource rejected field', 'status' => 'error']);
-    }
 }
