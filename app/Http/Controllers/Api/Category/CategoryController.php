@@ -43,7 +43,7 @@ class CategoryController extends Controller
     public function addCategory(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'name'         => 'required',
+            'name'         => 'required | unique:categories',
         ]);
 
         if ($validator->fails())

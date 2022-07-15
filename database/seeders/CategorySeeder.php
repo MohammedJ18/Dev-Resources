@@ -19,9 +19,7 @@ class CategorySeeder extends Seeder
             for($i = 1 ; $i <= 3 ; $i++) {
                 Category::create([
                     'name' => 'Category '.$i,
-                    
                 ]);
             }
-        
     }
 }
