@@ -26,10 +26,10 @@ class CategoryController extends Controller
             return $this->responseFormat([], 'Category not found', 404);
             return $this->responseFormat($category, 'Category has been found successfully', 200);
     }
-    //get all categories with resources count with sub sections count
+
     public function withCount()
     {
-        $categories = Category::with('resources')->get();
+        $categories = Category::get();
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
