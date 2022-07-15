@@ -30,22 +30,13 @@ use Illuminate\Support\Facades\Artisan;
 
 
 Route::middleware(['jwt'])->group(function () {
-
-    Route::middleware(['admin'])->group(function () {
-
-
-        //Category
-        Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-            Route::get('/', 'getCategories');
-            Route::get('/{id}', 'getCategory');
-            Route::get('/Admin/{id}', 'getAdminCategories');
-            Route::post('/add', 'addCategory');
-            Route::post('/edit', 'editCategory');
-            Route::post('/delete', 'deleteCategory');
-        });
-
+    //Category
+    Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+        Route::post('/add', 'addCategory');
+        Route::post('/update', 'updateCategory');
+        Route::post('/delete', 'deleteCategory');
     });
-
+    
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
         Route::get('/', 'getResourcesCount');
@@ -57,7 +48,6 @@ Route::middleware(['jwt'])->group(function () {
         Route::post('/delete', 'deleteResource');
         Route::post('/acceptResource', 'acceptResource');
         Route::post('/rejectResource', 'rejectResource');
-
     });
 
     // Link
@@ -78,8 +68,15 @@ Route::middleware(['jwt'])->group(function () {
 });
 
 
+//Category
+Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+    Route::get('/', 'getCategories');
+    Route::get('/{id}', 'getCategory');
+});
+
 //register & login routes
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
 });
+

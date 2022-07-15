@@ -60,47 +60,15 @@ class CategoryController extends Controller
         return $this->responseFormat($category, 'success', 200);
     }
 
-
-    // public function editCategory(Request $req)
-    // {
-    //     $validator = Validator::make($req->all(), [
-    //         'id'           => 'required',
-    //         'name'         => 'required',
-    //     ]);
-
-    //     if ($validator->fails())
-    //         return response()->json(['message' => $validator->errors()], 400);
-
-    //     $category = auth()->user()->categories()->find($req->id);
-    //     if (!$category)
-    //         return response()->json(['message' => 'Category not found'], 404);
-
-    //     if ($category->where('name', $req->name)->exists())
-    //         return response()->json(['message' => "Category '$req->name' already exists"], 400);
-
-    //     $category->update([
-    //         'name' => $req->name,
-    //     ]);
-
-    //     return response()->json(['category' => $category], 200);
-    // }
-
-    public function deleteCategory(Request $req)
+    //delete category
+    public function deleteCategory($id)
     {
-        $validator = Validator::make($req->all(), [
-            'id'           => 'required',
-        ]);
-
-        if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
-
-        $category = auth()->user()->categories()->find($req->id);
-
-        if (!$category)
-            return response()->json(['message' => 'Category not found'], 404);
-
+        $category = Category::find($id);
+        if (!$category) {
+            return $this->responseFormat([], 'error', 404);
+        }
         $category->delete();
-
-        return response()->json(['message' => 'Category deleted'], 200);
+        return $this->responseFormat([], 'success', 200);
     }
+
 }
