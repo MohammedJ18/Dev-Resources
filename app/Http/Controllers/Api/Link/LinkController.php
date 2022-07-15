@@ -9,16 +9,17 @@ use App\Models\Link;
 
 class LinkController extends Controller
 {
-    public function getLinks(){
-        $links = user_link();
+    public function getLinks()
+    {
+        $links = Link::with('resource')->get();
         return response()->json($links);
     }
 
-    public function link($id){
-        if(!user_link($id))
+    public function link($id)
+    {
+        $link = Link::with('resource')->find($id);
+        if (!$link)
             return response()->json(['message' => 'Link not found'], 404);
-
-            $link = Link::with('resource')->find($id);
 
         return response()->json($link);
     }
@@ -29,20 +30,22 @@ class LinkController extends Controller
             'url'         => 'required',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
-        }
 
-        if(user_link(null , $req->url))
-            return response()->json(['message' => 'Link already exists'], 400);
+            $link = new Link;
 
-        $link = new Link;
+        if (!$link->where('resource_id', $req->resource_id)->exists())
+            return response()->json(['message' => 'Resource not found'], 404);
 
-        $link = $link->add([
-            'url' => $req->url,
+        // if($link->where('url', $req->url)->exists())
+        //     return response()->json(['message' => 'Link already exists'], 400);
+
+        $link = $link->create([
             'resource_id' => $req->resource_id,
-
+            'url'         => $req->url,
         ]);
+
         return response()->json(['link'=> $link], 201);
     }
 
@@ -52,15 +55,15 @@ class LinkController extends Controller
             'url'         => 'required',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
-        }
-        if(!user_link($req->id))
+
+            $link = Link::find($req->id);
+
+        if(!$link)
             return response()->json(['message' => 'Link not found'], 404);
 
-        $link = Link::find($req->id);
-
-            $link->edit([
+            $link->update([
                 'url' => $req->url,
             ]);
 
@@ -72,13 +75,14 @@ class LinkController extends Controller
             'id'           => 'required',
         ]);
 
-        if ($validator->fails()){
+        if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
-        }
-        if(!user_link($req->id))
+
+            $link = Link::find($req->id);
+        if(!$link)
             return response()->json(['message' => 'Link not found'], 404);
 
-        $link = Link::find($req->id);
+
         $link->delete();
         return response()->json(['message'=> 'Link deleted'], 200);
     }
