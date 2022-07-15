@@ -40,9 +40,9 @@ Route::middleware(['jwt'])->group(function () {
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
 
-        Route::post('/edit', 'editResource');
-        Route::post('/delete', 'deleteResource');
-        Route::post('/acceptResource', 'acceptResource');
+        Route::post('/update/{id}', 'updateResource');
+        Route::post('/delete/{id}', 'deleteResource');
+        Route::post('/acceptResource/{id}', 'acceptResource');
     });
 
     // Link

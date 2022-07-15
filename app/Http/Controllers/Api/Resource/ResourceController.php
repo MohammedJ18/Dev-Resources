@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Traits\HelperTrait;
 use App\Models\Resource;
+use Illuminate\Support\Facades\Validator;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 
@@ -26,9 +27,8 @@ class ResourceController extends Controller
     public function getLastSixResources()
     {
         $resources = Resource::orderBy('id', 'desc')->take(6)->get();
-        return $this->responseFormat($resources, 'Resources Count', 200);
+        return $this->responseFormat($resources, 'Resources have been found successfully', 200);
     }
-
 
     //add resource
     public function addResource(Request $req)
@@ -41,7 +41,7 @@ class ResourceController extends Controller
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->responseFormat($validator->errors(), 'Validation Error', 400);
+            return $this->responseFormat([], $validator->errors(), 400);
         }
 
         $ext = $req->screenShot->extension();
@@ -67,11 +67,12 @@ class ResourceController extends Controller
             return $this->responseFormat([], 'Resource Not Added', 400);
         }
     }
+
     //edit resource
-    public function editResource(Request $req)
+    public function updateResource($id, Request $req)
     {
 
-        $validator = \Validator::make($req->all(), [
+        $validator = Validator::make($req->all(), [
             'category_id' => 'required|exists:categories,id',
             'subsection_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
@@ -79,7 +80,7 @@ class ResourceController extends Controller
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
+            return $this->responseFormat([], $validator->errors(), 400);
         }
 
         if ($req->screenShot) {
@@ -90,9 +91,9 @@ class ResourceController extends Controller
             $screenShot_path .= $name;
         }
 
-        $resource = Resource::find($req->id);
+        $resource = Resource::find($id);
         if (!$resource)
-            return $this->responseFormat(['msg' => 'Something went wrong',  'status' => 'error']);
+            return $this->responseFormat([], 'Resource Not Found', 404);
 
         $resource->update([
             'name' => $req->name,
@@ -102,49 +103,30 @@ class ResourceController extends Controller
             'screenShot' => $screenShot_path,
         ]);
         return $this->responseFormat($resource, 'Resource Updated Successfully', 200);
-
     }
+
     //delete resource
-    public function deleteResource(Request $req)
+    public function deleteResource($id)
     {
-        $validator = \Validator::make($req->all(), [
-            'id' => 'required',
-        ]);
+        $resource = Resource::find($id);
 
-        if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
-        }
-
-        $resource = Resource::find($req->id);
-
-        if ($resource) {
-            $resource->delete();
-            return $this->responseFormat($resource, 'Resource Deleted Successfully', 200);
-        } else {
-            return $this->responseFormat(['msg' => 'Something went wrong', 'status' => 'error']);
-        }
+        if (!$resource)
+            return $this->responseFormat([], 'Resource Not Found', 404);
+        $resource->delete();
+        return $this->responseFormat([], 'Resource Deleted Successfully', 200);
     }
+
     //Accept Resource
-    public function acceptResource(Request $req)
+    public function acceptResource($id)
     {
-        $validator = \Validator::make($req->all(), [
-            'id' => 'required',
-        ]);
+        $resource = Resource::find($id);
+        if (!$resource)
+            return $this->responseFormat([], 'Resource Not Found', 404);
 
-        if ($validator->fails()) {
-            return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
+        if ($resource->state == true) {
+            return $this->responseFormat([], 'Resource Already Accepted', 400);
         }
-
-        $resource = Resource:: find($req->id);
-
-        if ($resource) {
-            $resource->update([
-                'state' => true,
-            ]);
-            return $this->responseFormat($resource, 'Resource Accepted Successfully', 200);
-        } else {
-            return $this->responseFormat(['msg' => 'Something went wrong', 'status' => 'error']);
-        }
+        $resource->update(['state' => true]);
+        return $this->responseFormat($resource, 'Resource Accepted Successfully', 200);
     }
-
 }
