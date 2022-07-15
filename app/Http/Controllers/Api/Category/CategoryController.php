@@ -6,46 +6,39 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\User;
 
 class CategoryController extends Controller
 {
-    //get categories method
+    //get categories
     public function getCategories()
     {
-        $category = Category::get();
-        return response()->json($category);
+        $categories = Category::with('resources')->get();
+        return response()->json($categories);
     }
 
-    //get category method
-    public function getCategory($id)
+    //get category
+    public function getcategory($id)
     {
-        $category = Category::find($id);
+        $category = Category::with('resources')->find($id);
         if (!$category)
             return response()->json(['message' => 'Category not found'], 404);
         return response()->json($category);
     }
 
-    //get admin categories method
+    //get admin categories
     public function getAdminCategories($id)
     {
-        $category = Category::where('user_id', $id)->get();
-        if (!$category)
-            return response()->json(['message' => 'Category not found'], 404);
-        return response()->json($category);
+        $user = User::find($id);
+        if(!$user)
+            return response()->json(['message' => 'User not found'], 404);
+        if(!$user->categories()->exists())
+            return response()->json(['message' => 'User dont have category'], 404);
+        $categories = Category::where('user_id', $id)->get();
+
+        return response()->json($categories);
     }
-    
 
-
-
-    // public function category($id)
-    // {
-    //     if (!user_category($id))
-    //         return response()->json(['message' => 'Category not found'], 404);
-
-    //     $category = Category::with('resources')->find($id);
-
-    //     return response()->json($category);
-    // }
 
     public function addCategory(Request $req)
     {
@@ -53,21 +46,19 @@ class CategoryController extends Controller
             'name'         => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
-        }
-
-        if (user_category(null, $req->name))
-            return response()->json(['message' => 'Category already exists'], 400);
 
         $category = new Category;
 
+        if ($category->where('name', $req->name)->exists())
+            return response()->json(['message' => 'category is  already taken'], 400);
+
         $user_id = auth()->id();
-        $category = $category->add([
+        $category = $category->create([
             'name' => $req->name,
             'user_id' => $user_id,
         ]);
-
 
         return response()->json(['category' => $category], 201);
     }
@@ -79,18 +70,17 @@ class CategoryController extends Controller
             'name'         => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
-        }
-        if (!user_category($req->id))
+
+            $category = Category::find($req->id);
+        if (!$category)
             return response()->json(['message' => 'Category not found'], 404);
 
-        if (user_category(null, $req->name))
+        if ($category->where('name', $req->name)->exists())
             return response()->json(['message' => "Category '$req->name' already exists"], 400);
 
-        $category = Category::find($req->id);
-
-        $category->edit([
+        $category->update([
             'name' => $req->name,
         ]);
 
@@ -103,13 +93,14 @@ class CategoryController extends Controller
             'id'           => 'required',
         ]);
 
-        if ($validator->fails()) {
+        if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
-        }
-        if (!user_category($req->id))
-            return response()->json(['message' => 'Category not found'], 404);
 
         $category = Category::find($req->id);
+
+        if (!$category)
+            return response()->json(['message' => 'Category not found'], 404);
+
         $category->delete();
 
         return response()->json(['message' => 'Category deleted'], 200);

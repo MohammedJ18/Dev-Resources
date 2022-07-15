@@ -36,7 +36,9 @@ Route::middleware(['jwt'])->group(function () {
 
         //Category
         Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-            Route::get('AdminCategories/{id}', 'getCategory');
+            Route::get('/', 'getCategories');
+            Route::get('/{id}', 'getCategory');
+            Route::get('/Admin/{id}', 'getAdminCategories');
             Route::post('/add', 'addCategory');
             Route::post('/edit', 'editCategory');
             Route::post('/delete', 'deleteCategory');
@@ -46,8 +48,7 @@ Route::middleware(['jwt'])->group(function () {
 
     //Category
     Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-        Route::get('/', 'getCategories');
-        Route::get('/{id}', 'getCategory');
+
     });
 
     // Resources
