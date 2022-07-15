@@ -46,11 +46,6 @@ Route::middleware(['jwt'])->group(function () {
 
     });
 
-    //Category
-    Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-
-    });
-
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
         Route::get('/', 'getResourcesCount');
