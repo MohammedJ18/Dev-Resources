@@ -19,19 +19,31 @@ class CategoryController extends Controller
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
-    public function getcategory($id)
+    public function getCategory($id)
     {
         $category = Category::with('resources')->find($id);
         if (!$category)
             return $this->responseFormat([], 'Category not found', 404);
-            return $this->responseFormat($category, 'Category has been found successfully', 200);
+
+        return $this->responseFormat($category, 'Category has been found successfully', 200);
     }
 
     public function withCount()
     {
-        $categories = Category::withCount('resources')->with('subsections')->get();
+        $categories = Category::withCount('resources')->withCount('subsections')->get();
+
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
+
+    public function getCategoriesWithSections($id)
+    {
+        $categories = Category::with('subsections')->withCount('subsections')->find($id);
+        if (!$categories)
+            return $this->responseFormat([], 'Category not found', 404);
+
+        return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
+    }
+
 
     //get admin categories
     // public function getAdminCategories($id)
