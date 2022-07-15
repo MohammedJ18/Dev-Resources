@@ -19,20 +19,27 @@ class ResourceController extends Controller
     public function getResourcesCount()
     {
         $resources = Resource::count();
-        return responseFormat(['resources' => $resources], "success", 200);
+        return $this->responseFormat($resources, 'Resources Count', 200);
     }
     //Category Resources
-    public function getCategoryResources($id)
+    public function getCategoryResources(Request $req)
     {
-        $resources = Resource::where('category_id', $id)->get();
-        return responseFormat(['resources' => $resources], "success", 200);
+        $resources = Resource::where('category_id', $req->id)->get();
+        return  $this->responseFormat(['resources' => $resources], "success", 200);
+    }
+    //Category Resources Count
+    public function getCategoryResourcesCount(Request $req)
+    {
+        $resources = Resource::where('category_id', $req->id)->count();
+        return $this->responseFormat(['resources' => $resources], "success", 200);
     }
     //The last six resources method
     public function getLastSixResources()
     {
         $resources = Resource::orderBy('id', 'desc')->take(6)->get();
-        return responseFormat(['resources' => $resources], "success", 200);
+        return $this->responseFormat($resources, 'Resources Count', 200);
     }
+
 
     //add resource
     public function addResource(Request $req)
