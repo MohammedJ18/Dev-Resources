@@ -49,8 +49,6 @@ class CategoryController extends Controller
         if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
 
-        $category = new Category;
-
         if ($category->where('name', $req->name)->exists())
             return response()->json(['message' => 'category is  already taken'], 400);
 
@@ -73,7 +71,7 @@ class CategoryController extends Controller
         if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
 
-            $category = Category::find($req->id);
+            $category = auth()->user()->categories()->find($req->id);
         if (!$category)
             return response()->json(['message' => 'Category not found'], 404);
 
@@ -96,7 +94,7 @@ class CategoryController extends Controller
         if ($validator->fails())
             return response()->json(['message' => $validator->errors()], 400);
 
-        $category = Category::find($req->id);
+            $category = auth()->user()->categories()->find($req->id);
 
         if (!$category)
             return response()->json(['message' => 'Category not found'], 404);
