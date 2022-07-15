@@ -41,7 +41,7 @@ class ResourceController extends Controller
             'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->responseFormat([], $this->error($validator->errors()->first()), 400);
+            return $this->responseFormat($validator->errors(), 'Validation Error', 400);
         }
 
         $ext = $req->screenShot->extension();
@@ -60,12 +60,11 @@ class ResourceController extends Controller
             'state' => false,
         ];
 
-        $insert = auth()->user()->resources()->create($data);
-
+        $insert = Resource::create($data);
         if ($insert) {
-            return $this->responseFormat(['msg' => 'Resource added successfully', 'status' => 'success', 'data' => $insert]);
+            return $this->responseFormat($insert, 'Resource Added Successfully', 200);
         } else {
-            return $this->responseFormat(['msg' => 'Something went wrong', 'status' => 'error']);
+            return $this->responseFormat([], 'Resource Not Added', 400);
         }
     }
     //edit resource
@@ -91,7 +90,7 @@ class ResourceController extends Controller
             $screenShot_path .= $name;
         }
 
-        $resource = auth()->user()->resources()->find($req->id);
+        $resource = Resource::find($req->id);
         if (!$resource)
             return $this->responseFormat(['msg' => 'Something went wrong',  'status' => 'error']);
 
@@ -102,8 +101,8 @@ class ResourceController extends Controller
             'description' => $req->description,
             'screenShot' => $screenShot_path,
         ]);
+        return $this->responseFormat($resource, 'Resource Updated Successfully', 200);
 
-        return $this->responseFormat(['msg' => 'Resource updated successfully', 'status' => 'success', 'data' => $resource]);
     }
     //delete resource
     public function deleteResource(Request $req)
@@ -116,12 +115,14 @@ class ResourceController extends Controller
             return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
         }
 
-        $resource = auth()->user()->resources()->find($req->id);
+        $resource = Resource::find($req->id);
 
         if ($resource) {
             $resource->delete();
-            return $this->responseFormat(['msg' => 'Resource deleted successfully', 'status' => 'success']);
-        } else return $this->responseFormat(['msg' => 'Resource deleted field', 'status' => 'error']);
+            return $this->responseFormat($resource, 'Resource Deleted Successfully', 200);
+        } else {
+            return $this->responseFormat(['msg' => 'Something went wrong', 'status' => 'error']);
+        }
     }
     //Accept Resource
     public function acceptResource(Request $req)
@@ -134,14 +135,16 @@ class ResourceController extends Controller
             return $this->responseFormat(['msg' => $validator->errors()->first(), 'status' => 'error']);
         }
 
-        $resource = auth()->user()->resources()->find($req->id);
+        $resource = Resource:: find($req->id);
 
         if ($resource) {
             $resource->update([
                 'state' => true,
             ]);
-            return $this->responseFormat(['msg' => 'Resource accepted successfully', 'status' => 'success', 'data' => $resource]);
-        } else return $this->responseFormat(['msg' => 'Resource accepted field', 'status' => 'error']);
+            return $this->responseFormat($resource, 'Resource Accepted Successfully', 200);
+        } else {
+            return $this->responseFormat(['msg' => 'Something went wrong', 'status' => 'error']);
+        }
     }
 
 }
