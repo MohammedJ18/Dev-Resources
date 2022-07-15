@@ -29,7 +29,7 @@ class CategoryController extends Controller
 
     public function withCount()
     {
-        $categories = Category::get();
+        $categories = Category::withCount('resources')->with('subsections')->get();
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
