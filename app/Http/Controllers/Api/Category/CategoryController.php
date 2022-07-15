@@ -13,21 +13,21 @@ class CategoryController extends Controller
 {
     use HelperTrait;
 
-    //get categories with resources count with subsections count
+    //get categories with resources & subsections count
     public function getCategories()
     {
-        $categories = Category::with('resourcesCount', 'subsectionsCount')->get();
-        return response()->json($categories);
+        $categories = Category::withCount('resources')->withCount('subsections')->get();
+        return $this->responseFormat($categories, 'Categories found successfully', 200);
     }
 
     //get category
     public function getCategory($id)
     {
-        $category = Category::with('resources')->find($id);
+        $category = Category::with('subsections')->withCount('subsections')->withCount('resources')->find($id);
         if (!$category) {
-            return $this->responseFormat([], 'error', 404);
+            return $this->responseFormat([], 'This Category not found', 404);
         }
-        return $this->responseFormat($category, 'success', 200);
+        return $this->responseFormat($category, 'Category successfully found', 200);
     }
 
     //add category
@@ -40,7 +40,7 @@ class CategoryController extends Controller
             return $this->responseFormat([], $validator->errors(), 400);
         }
         $category = Category::create($request->all());
-        return $this->responseFormat($category, 'success', 201);
+        return $this->responseFormat($category, 'Category added successfully', 201);
     }
 
     //update category
@@ -48,7 +48,7 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if (!$category) {
-            return $this->responseFormat([], 'error', 404);
+            return $this->responseFormat([], 'This Category not found', 404);
         }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -57,7 +57,7 @@ class CategoryController extends Controller
             return $this->responseFormat([], $validator->errors(), 400);
         }
         $category->update($request->all());
-        return $this->responseFormat($category, 'success', 200);
+        return $this->responseFormat($category, 'Class updated successfully', 200);
     }
 
     //delete category
@@ -65,10 +65,10 @@ class CategoryController extends Controller
     {
         $category = Category::find($id);
         if (!$category) {
-            return $this->responseFormat([], 'error', 404);
+            return $this->responseFormat([], 'This Category not found', 404);
         }
         $category->delete();
-        return $this->responseFormat([], 'success', 200);
+        return $this->responseFormat([], 'Category deleted successfully', 200);
     }
 
 }
