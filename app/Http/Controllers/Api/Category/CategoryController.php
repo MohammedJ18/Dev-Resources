@@ -53,10 +53,9 @@ class CategoryController extends Controller
         return $this->responseFormat($category, 'Category has been added successfully', 200);
     }
 
-    public function editCategory(Request $req)
+    public function editCategory($id , Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'id'           => 'required',
             'name'         => 'required | unique:categories',
             'image'        => 'required',
         ]);
@@ -64,7 +63,7 @@ class CategoryController extends Controller
         if ($validator->fails())
             return $this->responseFormat([], $validator->errors(), 400);
 
-            $category = Category::find($req->id);
+            $category = Category::find($id);
         if (!$category)
             return $this->responseFormat([], 'Category not found', 404);
 
@@ -84,22 +83,14 @@ class CategoryController extends Controller
         return $this->responseFormat($category, 'Category has been updated successfully', 200);
     }
 
-    public function deleteCategory(Request $req)
+    public function deleteCategory($id)
     {
-        $validator = Validator::make($req->all(), [
-            'id'           => 'required',
-        ]);
-
-        if ($validator->fails())
-            return $this->responseFormat([], $validator->errors(), 400);
-
-            $category = Category::find($req->id);
-
+        $category = Category::find($id);
         if (!$category)
             return $this->responseFormat([], 'Category not found', 404);
 
         $category->delete();
 
-        return $this->responseFormat($category, 'Category has been deleted successfully', 200);
+        return $this->responseFormat([], 'Category has been deleted successfully', 200);
     }
 }
