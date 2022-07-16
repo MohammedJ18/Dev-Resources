@@ -57,13 +57,6 @@ class SubSectionController extends Controller
         return $this->responseFormat([], 'Sub Section has been deleted successfully', 200);
     }
 
-    //get all sub sections method
-    public function getAllSubSections()
-    {
-        $subSections = SubSection::all();
-        return $this->responseFormat($subSections, 'Sub Sections found successfully', 200);
-    }
-
     //get sub section by id with resources method
     public function getSubSectionById($id)
     {

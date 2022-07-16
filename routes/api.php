@@ -7,16 +7,11 @@ use App\Http\Controllers\Api\{
     ### Category ###
     Category\CategoryController,
 
-    ### SubSection ###
-    SubSection\SubSectionController,
-
     ### Resource ###
     Resource\ResourceController,
 
     ### Link ###
     Link\LinkController,
-
-
 };
 
 use Illuminate\Http\Request;
@@ -40,12 +35,6 @@ Route::middleware(['jwt'])->group(function () {
         Route::post('/add', 'addCategory');
         Route::post('/edit', 'editCategory');
         Route::post('/delete', 'deleteCategory');
-    });
-    //SubSection
-    Route::controller(SubSectionController::class)->prefix('sub-sections')->group(function () {
-        Route::post('/add', 'addSubSection');
-        Route::post('/edit', 'editSubSection');
-        Route::post('/delete', 'deleteSubSection');
     });
 
     // Resources
@@ -78,11 +67,7 @@ Route::middleware(['jwt'])->group(function () {
 Route::controller(CategoryController::class)->prefix('categories')->group(function () {
     Route::get('/', 'getCategories');
     Route::get('/{id}', 'getCategory');
-    Route::get('/withcount', 'withCount');
-    Route::post('/CategoryWithResourcesCount', 'CategoryWithResourcesCount');
-
 });
-
 
 // Resources
 Route::controller(ResourceController::class)->prefix('resources')->group(function () {

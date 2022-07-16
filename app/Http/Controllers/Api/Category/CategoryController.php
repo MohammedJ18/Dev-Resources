@@ -15,52 +15,19 @@ class CategoryController extends Controller
 
     public function getCategories()
     {
-        $categories = Category::with('resources')->get();
+        $categories = Category::withCount('resources')->withCount('subsections')->get();
+
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
     public function getCategory($id)
     {
-        $category = Category::with('resources')->find($id);
-        if (!$category)
+        $categories = Category::with('subsections')->withCount('subsections')->find($id);
+        if (!$categories)
             return $this->responseFormat([], 'Category not found', 404);
-            return $this->responseFormat($category, 'Category has been found successfully', 200);
-    }
 
-    public function withCount()
-    {
-        $categories = Category::withCount('resources')->with('subsections')->get();
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
-
     }
-
-    //Category section with resources count
-
-    public function CategoryWithResourcesCount(Request $req)
-    {
-
-        $category = Category::withCount('resources')->with('subsections')->find($req->id);
-        $resourcesCount = $category->resources_count;
-        $subsections = $category->subsections;
-
-        if (!$category)
-            return $this->responseFormat([], 'Category not found', 404);
-        return $this->responseFormat(['resourcesCount'=>$resourcesCount, 'subsections'=> $subsections], 'Category has been found successfully', 200);
-    }
-
-
-    //get admin categories
-    // public function getAdminCategories($id)
-    // {
-    //     $user = User::find($id);
-    //     if(!$user)
-    //         return response()->json(['message' => 'User not found'], 404);
-    //     if(!$user->categories()->exists())
-    //         return response()->json(['message' => 'User dont have category'], 404);
-    //     $categories = auth()->user()->categories;
-
-    //     return response()->json($categories);
-    // }
 
     public function addCategory(Request $req)
     {
