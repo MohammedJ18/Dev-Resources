@@ -34,6 +34,21 @@ class CategoryController extends Controller
 
     }
 
+    //Category section with resources count
+
+    public function CategoryWithResourcesCount(Request $req)
+    {
+
+        $category = Category::withCount('resources')->with('subsections')->find($req->id);
+        $resourcesCount = $category->resources_count;
+        $subsections = $category->subsections;
+
+        if (!$category)
+            return $this->responseFormat([], 'Category not found', 404);
+        return $this->responseFormat(['resourcesCount'=>$resourcesCount, 'subsections'=> $subsections], 'Category has been found successfully', 200);
+    }
+
+
     //get admin categories
     // public function getAdminCategories($id)
     // {

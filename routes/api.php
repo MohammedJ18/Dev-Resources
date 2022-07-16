@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\{
 
     ### Link ###
     Link\LinkController,
+
+    ### SubSection ###
+    SubSection\SubSectionController,
 };
 
 use Illuminate\Http\Request;
@@ -68,6 +71,8 @@ Route::controller(CategoryController::class)->prefix('categories')->group(functi
     Route::get('/', 'getCategories');
     Route::get('/{id}', 'getCategory');
     Route::get('/withcount', 'withCount');
+    Route::post('/CategoryWithResourcesCount', 'CategoryWithResourcesCount');
+
 });
 
 // Resources
