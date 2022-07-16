@@ -50,8 +50,8 @@ Route::middleware(['jwt'])->group(function () {
         Route::get('/', 'getLinks');
         Route::get('/{id}', 'link');
         Route::post('/add', 'addLink');
-        Route::post('/edit', 'editLink');
-        Route::post('/delete', 'deleteLink');
+        Route::post('/edit/{id}', 'editLink');
+        Route::post('/delete/{id}', 'deleteLink');
     });
 
     // Auth

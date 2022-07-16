@@ -4,24 +4,26 @@ namespace App\Http\Controllers\Api\Link;
 
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use App\Traits\HelperTrait;
 use Illuminate\Http\Request;
 use App\Models\Link;
 
 class LinkController extends Controller
 {
+    use HelperTrait;
     public function getLinks()
     {
         $links = Link::with('resource')->get();
-        return response()->json($links);
+        return $this->responseFormat ($links, 'Links have been found successfully', 200);
     }
 
     public function link($id)
     {
         $link = Link::with('resource')->find($id);
         if (!$link)
-            return response()->json(['message' => 'Link not found'], 404);
+            return $this->responseFormat([], 'Link not found', 404);
 
-        return response()->json($link);
+        return $this->responseFormat($link, 'Link has been found successfully', 200);
     }
 
     public function addLink(Request $req){
@@ -31,60 +33,51 @@ class LinkController extends Controller
         ]);
 
         if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
-            $link = new Link;
+        $link = new Link;
 
         if (!$link->where('resource_id', $req->resource_id)->exists())
-            return response()->json(['message' => 'Resource not found'], 404);
-
-        // if($link->where('url', $req->url)->exists())
-        //     return response()->json(['message' => 'Link already exists'], 400);
+            return $this->responseFormat([], 'Resource not found', 404);
 
         $link = $link->create([
             'resource_id' => $req->resource_id,
             'url'         => $req->url,
         ]);
 
-        return response()->json(['link'=> $link], 201);
+        return $this->responseFormat($link, 'Link has been added successfully', 200);
     }
 
-    public function editLink(Request $req){
+    public function editLink($id , Request $req){
         $validator = Validator::make($req->all(), [
-            'id'           => 'required',
             'url'         => 'required',
         ]);
 
         if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
-            $link = Link::find($req->id);
+        $link = Link::find($id);
 
         if(!$link)
-            return response()->json(['message' => 'Link not found'], 404);
+            return $this->responseFormat([], 'Link not found', 404);
 
             $link->update([
                 'url' => $req->url,
             ]);
 
-            return response()->json(['link'=> $link], 201);
+        return $this->responseFormat($link, 'Link has been updated successfully', 200);
     }
 
-    public function deleteLink(Request $req){
-        $validator = Validator::make($req->all(), [
-            'id'           => 'required',
-        ]);
+    public function deleteLink($id , Request $req){
 
-        if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
+        $link = Link::find($id);
 
-            $link = Link::find($req->id);
         if(!$link)
-            return response()->json(['message' => 'Link not found'], 404);
-
+            return $this->responseFormat([], 'Link not found', 404);
 
         $link->delete();
-        return response()->json(['message'=> 'Link deleted'], 200);
+
+        return $this->responseFormat([], 'Link has been deleted successfully', 200);
     }
 
 }

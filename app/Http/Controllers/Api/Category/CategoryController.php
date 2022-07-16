@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function getCategories()
     {
         $categories = Category::withCount('resources')->withCount('subsections')->get();
-
+        
         return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
     }
 
