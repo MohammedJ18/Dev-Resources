@@ -62,7 +62,7 @@ class SubSectionController extends Controller
     //get sub section by id with resources method
     public function getSubSectionById($id)
     {
-        $subSection = SubSection::with('resources')->withCount('resources')->find($id);
+        $subSection = SubSection::find($id);
         if (!$subSection) {
             return $this->responseFormat([], 'This Sub Section not found', 404);
         }
