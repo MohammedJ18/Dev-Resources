@@ -62,8 +62,6 @@ class ResourceController extends Controller
         ];
 
 
-        $tags = ($req->tags);
-
         $insert = Resource::create($data);
 
         $tags = array_values($req->tags);
