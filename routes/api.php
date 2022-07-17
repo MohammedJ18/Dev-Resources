@@ -16,7 +16,7 @@ use App\Http\Controllers\Api\{
     ### Tag ###
     Tag\TagController,
 };
-
+use App\Http\Controllers\Api\SubSection\SubSectionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -39,6 +39,14 @@ Route::middleware(['jwt'])->group(function () {
         Route::post('/edit/{id}', 'editCategory');
         Route::post('/delete/{id}', 'deleteCategory');
     });
+
+    //SubSection
+    Route::controller(SubSectionController::class)->prefix('sub-sections')->group(function () {
+        Route::post('/add', 'addSubSection');
+        Route::post('/update/{id}', 'updateSubSection');
+        Route::post('/delete/{id}', 'deleteSubSection');
+    });
+    
 
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {
@@ -75,6 +83,12 @@ Route::middleware(['jwt'])->group(function () {
 Route::controller(CategoryController::class)->prefix('categories')->group(function () {
     Route::get('/', 'getCategories');
     Route::get('/{id}', 'getCategory');
+});
+
+//SubSection
+Route::controller(SubSectionController::class)->prefix('sub-sections')->group(function () {
+    Route::get('getSubSection/{id}', 'getSubSectionById');
+    Route::get('getSubByCategory/{id}', 'getSubSectionsByCategoryId');
 });
 
 // Resources
