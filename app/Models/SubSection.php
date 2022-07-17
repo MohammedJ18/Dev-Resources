@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubSection extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'user_id', 'category_id'];
+    protected $fillable = ['name', 'image', 'category_id'];
 
    
     

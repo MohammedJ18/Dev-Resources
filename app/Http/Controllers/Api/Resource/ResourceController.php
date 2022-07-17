@@ -122,8 +122,7 @@ class ResourceController extends Controller
     {
         $resource = Resource::find($req->id);
 
-        $tags = ($req->tags);
-        $resource->tags()->detach($tags);
+        $resource->tags()->detach($req->tags);
 
         if (!$resource)
             return $this->responseFormat([], 'Resource Not Found', 404);
