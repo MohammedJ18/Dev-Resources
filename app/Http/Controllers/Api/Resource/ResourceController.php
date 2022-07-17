@@ -85,7 +85,6 @@ class ResourceController extends Controller
             'subsection_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
             'description' => 'required',
-            'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->responseFormat([], $validator->errors(), 400);
@@ -97,6 +96,9 @@ class ResourceController extends Controller
             $screenShot_path = 'resources/screenShots/';
             $req->screenShot->storeAs('public/' . $screenShot_path, $name);
             $screenShot_path .= $name;
+        }
+        else {
+            $screenShot_path = null;
         }
 
         $resource = Resource::find($id);
@@ -110,13 +112,20 @@ class ResourceController extends Controller
             'description' => $req->description,
             'screenShot' => $screenShot_path,
         ]);
+
+        $tags = array_values($req->tags);
+        $resource->tags()->sync($tags);
+
         return $this->responseFormat($resource, 'Resource Updated Successfully', 200);
     }
 
     //delete resource
-    public function deleteResource($id)
+    public function deleteResource(Request $req)
     {
-        $resource = Resource::find($id);
+        $resource = Resource::find($req->id);
+
+        $tags = ($req->tags);
+        $resource->tags()->detach($tags);
 
         if (!$resource)
             return $this->responseFormat([], 'Resource Not Found', 404);
