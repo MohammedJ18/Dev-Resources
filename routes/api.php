@@ -59,8 +59,6 @@ Route::middleware(['jwt'])->group(function () {
 
     //Tags
     Route::controller(TagController::class)->prefix('tags')->group(function () {
-        Route::get('/', 'getTags');
-        //Route::get('/{id}', 'tag');
         Route::post('/add', 'addTag');
     });
 
@@ -84,6 +82,12 @@ Route::controller(ResourceController::class)->prefix('resources')->group(functio
     Route::get('/', 'getResourcesCount');
     Route::get('/getLastSixResources', 'getLastSixResources');
     Route::post('/add', 'addResource');
+});
+
+//Tags
+Route::controller(TagController::class)->prefix('tags')->group(function () {
+    Route::get('/', 'getTags');
+    Route::get('/{id}', 'getTag');
 });
 
 

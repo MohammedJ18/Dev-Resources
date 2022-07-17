@@ -12,23 +12,23 @@ class TagController extends Controller
 {
     use HelperTrait;
 
-    public function getTags ()
+    public function getTags()
     {
         $tags = Tag::get();
         return $this->responseFormat($tags, 'Tags have been found successfully', 200);
     }
 
 
-    public function getTag ($id)
+    public function getTag(Request $req)
     {
-        $tag = Tag::find($id);
+        $tag = Tag::find($req->id);
         if (!$tag)
             return $this->responseFormat([], 'Tag not found', 404);
 
         return $this->responseFormat($tag, 'Tag has been found successfully', 200);
     }
 
-    public function addTag (Request $req)
+    public function addTag(Request $req)
     {
         $validator = Validator::make($req->all(), [
             'name' => 'required | unique:tags',

@@ -38,18 +38,19 @@ class ResourceController extends Controller
             'subsection_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
             'description' => 'required',
-            'screenShot' => 'required',
         ]);
         if ($validator->fails()) {
             return $this->responseFormat([], $validator->errors(), 400);
         }
-
+        if($req->screenShot){
         $ext = $req->screenShot->extension();
         $name = \Str::random(10) . '.' . $ext;
         $screenShot_path = 'resources/screenShots/';
         $req->screenShot->storeAs('public/' . $screenShot_path, $name);
         $screenShot_path .= $name;
-
+    }else {
+        $screenShot_path = null;
+    }
 
         $data = [
             'category_id' => $req->category_id,
@@ -60,7 +61,14 @@ class ResourceController extends Controller
             'state' => false,
         ];
 
+
+        $tags = ($req->tags);
+
         $insert = Resource::create($data);
+
+        $tags = array_values($req->tags);
+        $insert->tags()->attach($tags);
+
         if ($insert) {
             return $this->responseFormat($insert, 'Resource Added Successfully', 200);
         } else {
