@@ -13,8 +13,8 @@ class Tag extends Model
     protected $fillable = ['name','resource_id'];
 
     // Relationship
-    public function resource()
+    public function resources()
     {
-        return $this->belongsTo(Resource::class);
+        return $this->belongsToMany(Resource::class);
     }
 }
