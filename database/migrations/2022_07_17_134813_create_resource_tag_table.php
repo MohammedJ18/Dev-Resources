@@ -13,9 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('tags', function (Blueprint $table) {
+        Schema::create('resource_tag', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
+            $table->foreignId('resource_id')->nullable()->constrained('resources')->onDelete('cascade');
+            $table->foreignId('tag_id')->nullable()->constrained('tags')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tags');
+        Schema::dropIfExists('resource_tag');
     }
 };

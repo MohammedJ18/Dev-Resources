@@ -36,9 +36,8 @@ class Resource extends Model
         return $this->hasMany(Link::class);
     }
 
-    public function tags()
-    {
-        return $this->hasMany(Tag::class);
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
     }
 
 
