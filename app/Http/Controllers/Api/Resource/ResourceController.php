@@ -20,14 +20,14 @@ class ResourceController extends Controller
     public function getResourcesCount()
     {
         $resources = Resource::count();
-        return $this->responseFormat($resources, 'Resources Count', 200);
+        return response()->json($resources);
     }
 
     //The last six resources method
     public function getLastSixResources()
     {
         $resources = Resource::orderBy('id', 'desc')->take(6)->with('category')->with('subsection')->get();
-        return $this->responseFormat($resources, 'Resources have been found successfully', 200);
+        return response()->json($resources);
     }
 
     //add resource
@@ -40,7 +40,7 @@ class ResourceController extends Controller
             'description' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->responseFormat([], $validator->errors(), 400);
+            return response()->json(['message' => $validator->errors()], 400);
         }
         if($req->screenShot){
         $ext = $req->screenShot->extension();
@@ -68,9 +68,11 @@ class ResourceController extends Controller
         $insert->tags()->attach($tags);
 
         if ($insert) {
-            return $this->responseFormat($insert, 'Resource Added Successfully', 200);
+            return response()->json($insert, 200);
         } else {
-            return $this->responseFormat([], 'Resource Not Added', 400);
+            return response()->json(['message' => 'Resource has not been added successfully'], 400);
+
+
         }
     }
 
@@ -85,7 +87,7 @@ class ResourceController extends Controller
             'description' => 'required',
         ]);
         if ($validator->fails()) {
-            return $this->responseFormat([], $validator->errors(), 400);
+            return response()->json(['message' => $validator->errors()], 400);
         }
 
         if ($req->screenShot) {
@@ -101,7 +103,7 @@ class ResourceController extends Controller
 
         $resource = Resource::find($id);
         if (!$resource)
-            return $this->responseFormat([], 'Resource Not Found', 404);
+            return response()->json(['message' => 'Resource not found'], 404);
 
         $resource->update([
             'name' => $req->name,
@@ -114,7 +116,8 @@ class ResourceController extends Controller
         $tags = array_values($req->tags);
         $resource->tags()->sync($tags);
 
-        return $this->responseFormat($resource, 'Resource Updated Successfully', 200);
+        return response()->json(['message' => 'Resource has been updated successfully'], 200);
+
     }
 
     //delete resource
@@ -125,9 +128,9 @@ class ResourceController extends Controller
         $resource->tags()->detach($req->tags);
 
         if (!$resource)
-            return $this->responseFormat([], 'Resource Not Found', 404);
+            return response()->json(['message' => 'Resource not found'], 404);
         $resource->delete();
-        return $this->responseFormat([], 'Resource Deleted Successfully', 200);
+        return response()->json(['message' => 'Resource has been deleted successfully'], 200);
     }
 
     //Accept Resource
@@ -135,12 +138,12 @@ class ResourceController extends Controller
     {
         $resource = Resource::find($id);
         if (!$resource)
-            return $this->responseFormat([], 'Resource Not Found', 404);
+            return response()->json(['message' => 'Resource not found'], 404);
 
         if ($resource->state == true) {
-            return $this->responseFormat([], 'Resource Already Accepted', 400);
+            return response()->json(['message' => 'Resource is already accepted'], 400);
         }
         $resource->update(['state' => true]);
-        return $this->responseFormat($resource, 'Resource Accepted Successfully', 200);
+        return response()->json(['message' => 'Resource has been accepted successfully'], 200);
     }
 }
