@@ -19,7 +19,7 @@ class CategorySeeder extends Seeder
             for($i = 1 ; $i <= 3 ; $i++) {
                 Category::create([
                     'name' => 'Category '.$i,
-                    'image' => 'resources/image/tHPgKMhLjK.jpg',
+                    'image' => 'https://www.ubertheme.com/wp-content/uploads/sites/3/edd/2014/06/jm-category.png',
 
                 ]);
             }

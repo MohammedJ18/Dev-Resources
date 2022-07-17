@@ -26,7 +26,7 @@ class CategoryController extends Controller
         if (!$categories)
             return $this->responseFormat([], 'Category not found', 404);
 
-        return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
+        return response()->json($categories);
     }
 
     public function addCategory(Request $req)
