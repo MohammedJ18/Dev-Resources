@@ -11,21 +11,31 @@ use App\Traits\HelperTrait;
 class SubSectionController extends Controller
 {
     use HelperTrait;
-    //add sub section method
+    //add sub section with image category_id method
     public function addSubSection(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'name' => 'required | unique:sub_sections',
-            'category_id' => 'required|exists:categories,id',
+            'name'         => 'required | unique:sub_sections',
+            'image'        => 'required',
+            'category_id'  => 'required',
         ]);
-        if ($validator->fails()) {
+
+        if ($validator->fails())
             return $this->responseFormat([], $validator->errors(), 400);
-        }
-        $subSection = new SubSection();
-        $subSection->name = $req->name;
-        $subSection->category_id = $req->category_id;
-        $subSection->save();
-        return $this->responseFormat($subSection, 'Sub Section has been added successfully', 200);
+
+        $ext = $req->image->extension();
+        $name = \Str::random(10) . '.' . $ext;
+        $image_path = 'subsections/image/';
+        $req->image->storeAs('public/' . $image_path, $name);
+        $image_path .= $name;
+
+        $subsection = SubSection::create([
+            'name' => $req->name,
+            'image' => $image_path,
+            'category_id' => $req->category_id,
+        ]);
+        
+        return $this->responseFormat($subsection, 'Sub Section has been added successfully', 200);
     }
 
     //update sub section method
