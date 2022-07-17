@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Models\SubSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Traits\HelperTrait;
 
 class SubSectionController extends Controller
 {
+    use HelperTrait;
     //add sub section method
     public function addSubSection(Request $req)
     {
@@ -65,5 +67,15 @@ class SubSectionController extends Controller
             return $this->responseFormat([], 'This Sub Section not found', 404);
         }
         return $this->responseFormat($subSection, 'Sub Section found successfully', 200);
+    }
+
+    // get subsections bg category_id method
+    public function getSubSectionsByCategoryId($category_id)
+    {
+        $subSections = SubSection::where('category_id', $category_id)->get();
+        if (!$subSections) {
+            return $this->responseFormat([], 'Sub Sections not found', 404);
+        }
+        return $this->responseFormat($subSections, 'Sub Sections found successfully', 200);
     }
 }
