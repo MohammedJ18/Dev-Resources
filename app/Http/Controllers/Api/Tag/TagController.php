@@ -18,7 +18,6 @@ class TagController extends Controller
         return response()->json($tags);
     }
 
-
     public function getTag($id)
     {
         $tag = Tag::find($id);

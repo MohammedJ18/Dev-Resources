@@ -5,14 +5,10 @@ namespace App\Http\Controllers\Api\Category;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Traits\HelperTrait;
 use App\Models\Category;
 
 class CategoryController extends Controller
 {
-
-    use HelperTrait;
-
     public function getCategories()
     {
         $categories = Category::withCount('resources')->withCount('subsections')->get();
