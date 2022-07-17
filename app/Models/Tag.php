@@ -10,7 +10,7 @@ class Tag extends Model
 {
     use HasFactory;
     use HelperTrait;
-    protected $fillable = ['name','resource_id'];
+    protected $fillable = ['name'];
 
     // Relationship
     public function resources()

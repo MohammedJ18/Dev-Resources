@@ -12,6 +12,9 @@ use App\Http\Controllers\Api\{
 
     ### Link ###
     Link\LinkController,
+
+    ### Tag ###
+    Tag\TagController,
 };
 
 use Illuminate\Http\Request;
@@ -54,6 +57,11 @@ Route::middleware(['jwt'])->group(function () {
         Route::post('/delete/{id}', 'deleteLink');
     });
 
+    //Tags
+    Route::controller(TagController::class)->prefix('tags')->group(function () {
+        Route::get('/', 'getTags');
+    });
+
     // Auth
     Route::group(['prefix' => 'auth'], function () {
         Route::post('/logout', [AuthController::class, 'logout']);
@@ -75,6 +83,7 @@ Route::controller(ResourceController::class)->prefix('resources')->group(functio
     Route::get('/getLastSixResources', 'getLastSixResources');
     Route::post('/add', 'addResource');
 });
+
 
 //register & login routes
 Route::group(['prefix' => 'auth'], function () {

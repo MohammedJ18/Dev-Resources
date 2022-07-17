@@ -19,8 +19,8 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             SubSectionSeeder::class,
             ResourceSeeder::class,
+            LinkSeeder::class,
             TagSeeder::class,
-            LinkSeeder::class
         ]);
     }
 }
