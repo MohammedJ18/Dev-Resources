@@ -24,9 +24,9 @@ class CategoryController extends Controller
     {
         $categories = Category::with('subsections')->withCount('subsections')->find($id);
         if (!$categories)
-            return $this->responseFormat([], 'Category not found', 404);
+            return response()->json(['message' => 'Category not found'], 404);
 
-        return $this->responseFormat( $categories, 'Categories have been found successfully', 200);
+        return response()->json($categories);
     }
 
     public function addCategory(Request $req)
@@ -37,7 +37,7 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails())
-            return $this->responseFormat([], $validator->errors(), 400);
+        return response()->json(['message' => $validator->errors()], 400);
 
         $ext = $req->image->extension();
         $name = \Str::random(10) . '.' . $ext;
@@ -50,7 +50,7 @@ class CategoryController extends Controller
             'image' => $image_path,
         ]);
 
-        return $this->responseFormat($category, 'Category has been added successfully', 200);
+        return response()->json(['Category' => $category] , 200);
     }
 
     public function editCategory($id , Request $req)
@@ -61,11 +61,11 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails())
-            return $this->responseFormat([], $validator->errors(), 400);
+        return response()->json(['message' => $validator->errors()], 400);
 
             $category = Category::find($id);
         if (!$category)
-            return $this->responseFormat([], 'Category not found', 404);
+            return response()->json(['message' => 'Category not found'], 404);
 
             if ($req->image) {
                 $ext = $req->image->extension();
@@ -80,17 +80,17 @@ class CategoryController extends Controller
             'image' => $image_path,
         ]);
 
-        return $this->responseFormat($category, 'Category has been updated successfully', 200);
+        return response()->json(['Message' => 'Category updated successfully'], 200);
     }
 
     public function deleteCategory($id)
     {
         $category = Category::find($id);
         if (!$category)
-            return $this->responseFormat([], 'Category not found', 404);
+            return response()->json(['message' => 'Category not found'], 404);
 
         $category->delete();
 
-        return $this->responseFormat([], 'Category has been deleted successfully', 200);
+        return response()->json(['message' => 'Category deleted successfully'], 200);
     }
 }
