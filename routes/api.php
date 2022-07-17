@@ -60,6 +60,8 @@ Route::middleware(['jwt'])->group(function () {
     //Tags
     Route::controller(TagController::class)->prefix('tags')->group(function () {
         Route::get('/', 'getTags');
+        //Route::get('/{id}', 'tag');
+        Route::post('/add', 'addTag');
     });
 
     // Auth
