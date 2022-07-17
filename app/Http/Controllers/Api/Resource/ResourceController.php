@@ -51,7 +51,7 @@ class ResourceController extends Controller
     }else {
         $screenShot_path = null;
     }
-
+//
         $data = [
             'category_id' => $req->category_id,
             'subsection_id' => $req->subsection_id,
