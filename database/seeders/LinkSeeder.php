@@ -20,6 +20,7 @@ class LinkSeeder extends Seeder
         //each resource has 2 links
         $resources = Resource::get();
 
+
         foreach ($resources as $resource) {
             $link = new Link;
             $link->url = 'https://www.google.com';

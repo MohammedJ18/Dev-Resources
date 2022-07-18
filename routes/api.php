@@ -102,6 +102,7 @@ Route::controller(ResourceController::class)->prefix('resources')->group(functio
 //Tags
 Route::controller(TagController::class)->prefix('tags')->group(function () {
     Route::get('/', 'getTags');
+    Route::get('/getTwelveTags', 'getTwelveTags');
     Route::get('/{id}', 'getTag');
 });
 

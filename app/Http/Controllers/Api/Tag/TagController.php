@@ -17,6 +17,12 @@ class TagController extends Controller
         $tags = Tag::get();
         return $this->responseFormat($tags, 'Tags fetched successfully', 200);
     }
+    
+    public function getTwelveTags()
+    {
+        $tags = Tag::limit(12)->get();
+        return $this->responseFormat($tags, 'Tags fetched successfully', 200);
+    }
 
     public function getTag($id)
     {
