@@ -74,7 +74,7 @@ class SubSectionController extends Controller
     // get subsections bg category_id method
     public function getSubSectionsByCategoryId($category_id)
     {
-        $subSections = SubSection::where('category_id', $category_id)->get();
+        $subSections = SubSection::where('category_id', $category_id)->withCount('resources')->get();
         if (!$subSections) {
             return $this->responseFormat([], 'Sub Sections not found', 404);
         }
