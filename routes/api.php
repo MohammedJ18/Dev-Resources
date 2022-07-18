@@ -79,6 +79,7 @@ Route::controller(CategoryController::class)->prefix('categories')->group(functi
 Route::controller(ResourceController::class)->prefix('resources')->group(function () {
     Route::get('/', 'getResourcesCount');
     Route::get('/getLastSixResources', 'getLastSixResources');
+    Route::get('/getResourcesWithTags', 'getResourcesWithTags');
     Route::post('/add', 'addResource');
 });
 
