@@ -20,7 +20,6 @@ class Resource extends Model
     ];
 
     protected $hidden = [
-        'screenShot',
         'created_at',
         'updated_at',
     ];
