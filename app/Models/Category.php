@@ -15,6 +15,16 @@ class Category extends Model
 
     protected $fillable = ['name' , 'image'];
 
+    protected $appends = [
+        'created_time',
+        'updated_time',
+
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
     // Relationship
 
     public function resources()

@@ -58,8 +58,6 @@ Route::middleware(['jwt'])->group(function () {
 
     // Link
     Route::controller(LinkController::class)->prefix('links')->group(function () {
-        Route::get('/', 'getLinks');
-        Route::get('/{id}', 'link');
         Route::post('/add', 'addLink');
         Route::post('/edit/{id}', 'editLink');
         Route::post('/delete/{id}', 'deleteLink');
@@ -95,6 +93,7 @@ Route::controller(SubSectionController::class)->prefix('sub-sections')->group(fu
 Route::controller(ResourceController::class)->prefix('resources')->group(function () {
     Route::get('/', 'getResourcesCount');
     Route::get('/getLastSixResources', 'getLastSixResources');
+    Route::get('/getResourcesWithTags', 'getResourcesWithTags');
     Route::post('/add', 'addResource');
 });
 
@@ -102,6 +101,12 @@ Route::controller(ResourceController::class)->prefix('resources')->group(functio
 Route::controller(TagController::class)->prefix('tags')->group(function () {
     Route::get('/', 'getTags');
     Route::get('/{id}', 'getTag');
+});
+
+// Link
+Route::controller(LinkController::class)->prefix('links')->group(function () {
+    Route::get('/', 'getLinks');
+    Route::get('/{id}', 'getLink');
 });
 
 
