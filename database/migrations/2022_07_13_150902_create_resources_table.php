@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->id();
             $table->foreignId('category_id')->nullable()->constrained('categories')->onDelete('cascade');
-            $table->foreignId('subsection_id')->nullable()->constrained('sub_sections')->onDelete('cascade');
+            $table->foreignId('sub_section_id')->nullable()->constrained('sub_sections')->onDelete('cascade');
             $table->string('name', 100);
 			$table->text('description')->nullable();
 			$table->string('screenShot')->nullable();
