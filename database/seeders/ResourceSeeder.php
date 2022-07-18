@@ -144,5 +144,7 @@ class ResourceSeeder extends Seeder
             'state' => true,
         ]);
 
+        
+
     }
 }
