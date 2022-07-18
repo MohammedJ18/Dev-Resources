@@ -15,6 +15,17 @@ class Category extends Model
 
     protected $fillable = ['name' , 'image'];
 
+    protected $appends = [
+        'image_url',
+        'created_time',
+        'updated_time',
+
+    ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
     // Relationship
 
     public function resources()
@@ -39,4 +50,5 @@ class Category extends Model
             },
         );
     }
+
 }

@@ -14,10 +14,14 @@ class Resource extends Model
     protected $fillable = ['category_id', 'subsection_id', 'user_id', 'name', 'description', 'screenShot', 'state'];
     protected $appends = [
         'image_url',
+        'created_time',
+        'updated_time',
+
     ];
 
     protected $hidden = [
-        'screenShot',
+        'created_at',
+        'updated_at',
     ];
 
     ### Relationship ##
@@ -57,4 +61,5 @@ class Resource extends Model
             },
         );
     }
+
 }

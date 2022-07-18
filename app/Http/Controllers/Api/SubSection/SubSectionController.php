@@ -11,31 +11,23 @@ use App\Traits\HelperTrait;
 class SubSectionController extends Controller
 {
     use HelperTrait;
-    //add sub section with image category_id method
+    //add sub section method
     public function addSubSection(Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'name'         => 'required | unique:sub_sections',
-            'image'        => 'required',
-            'category_id'  => 'required',
+            'name' => 'required | unique:sub_sections',
+            'category_id' => 'required|exists:categories,id',
         ]);
-
-        if ($validator->fails())
+        if ($validator->fails()) {
             return $this->responseFormat([], $validator->errors(), 400);
-
-        $ext = $req->image->extension();
-        $name = \Str::random(10) . '.' . $ext;
-        $image_path = 'subsections/image/';
-        $req->image->storeAs('public/' . $image_path, $name);
-        $image_path .= $name;
-
-        $subsection = SubSection::create([
-            'name' => $req->name,
-            'image' => $image_path,
-            'category_id' => $req->category_id,
-        ]);
+        }
         
-        return $this->responseFormat($subsection, 'Sub Section has been added successfully', 200);
+        $subSection = new SubSection();
+        $subSection->image = $subSection->add_image($req->image); 
+        $subSection->name = $req->name;
+        $subSection->category_id = $req->category_id;
+        $subSection->save();
+        return $this->responseFormat($subSection, 'Sub Section has been added successfully', 200);
     }
 
     //update sub section method
@@ -82,7 +74,7 @@ class SubSectionController extends Controller
     // get subsections bg category_id method
     public function getSubSectionsByCategoryId($category_id)
     {
-        $subSections = SubSection::where('category_id', $category_id)->get();
+        $subSections = SubSection::where('category_id', $category_id)->withCount('resources')->get();
         if (!$subSections) {
             return $this->responseFormat([], 'Sub Sections not found', 404);
         }
