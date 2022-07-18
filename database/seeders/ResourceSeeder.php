@@ -23,7 +23,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' html',
             'description' => 'html is a markup language for creating web pages and web applications.',
-            'screenShot' => 'resources/image/tUfE0yztR6.jpg',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -33,7 +33,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' css',
             'description' => 'css is a style sheet language used for describing the presentation of a document written in a markup language.',
-            'screenShot' => 'images\img\1.jpg',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -44,7 +44,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 2,
             'name' => ' javascript',
             'description' => 'javascript is a high-level, dynamic, untyped, and interpreted programming language.',
-            'screenShot' => 'images\img\1.jpg',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -55,7 +55,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' php',
             'description' => 'php is a server-side scripting language designed for web development.',
-            'screenShot' => 'images\img\1.jpg',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
