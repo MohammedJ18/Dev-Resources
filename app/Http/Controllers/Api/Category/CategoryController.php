@@ -7,11 +7,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Traits\HelperTrait;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
+
 
 
 class CategoryController extends Controller
 {
     use HelperTrait;
+    use WithFileUploads;
     public function getCategories()
     {
         $categories = Category::withCount('resources')->withCount('subsections')->get();
@@ -32,18 +36,21 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($req->all(), [
             'name'         => 'required | unique:categories',
-            'image'        => 'required',
         ]);
 
         if ($validator->fails())
         return response()->json(['message' => $validator->errors()], 400);
 
+        if($req->image) {
         $ext = $req->image->extension();
         $name = \Str::random(10) . '.' . $ext;
         $image_path = 'resources/image/';
         $req->image->storeAs('public/' . $image_path, $name);
         $image_path .= $name;
-
+        }
+        else {
+            $image_path = null;
+        }
         $category = Category::create([
             'name' => $req->name,
             'image' => $image_path,
@@ -56,7 +63,6 @@ class CategoryController extends Controller
     {
         $validator = Validator::make($req->all(), [
             'name'         => 'required | unique:categories',
-            'image'        => 'required',
         ]);
 
         if ($validator->fails())
@@ -72,6 +78,8 @@ class CategoryController extends Controller
                 $image_path = 'resources/image/';
                 $req->image->storeAs('public/' . $image_path, $name);
                 $image_path .= $name;
+            } else {
+                $image_path = null;
             }
 
         $category->update([
