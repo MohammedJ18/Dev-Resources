@@ -42,16 +42,16 @@ class ResourceController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
         }
-        if($req->screenShot){
-        $ext = $req->screenShot->extension();
-        $name = \Str::random(10) . '.' . $ext;
-        $screenShot_path = 'resources/screenShots/';
-        $req->screenShot->storeAs('public/' . $screenShot_path, $name);
-        $screenShot_path .= $name;
-    }else {
-        $screenShot_path = null;
-    }
-//
+        if ($req->screenShot) {
+            $ext = $req->screenShot->extension();
+            $name = \Str::random(10) . '.' . $ext;
+            $screenShot_path = 'resources/screenShots/';
+            $req->screenShot->storeAs('public/' . $screenShot_path, $name);
+            $screenShot_path .= $name;
+        } else {
+            $screenShot_path = null;
+        }
+        //
         $data = [
             'category_id' => $req->category_id,
             'subsection_id' => $req->subsection_id,
@@ -71,8 +71,6 @@ class ResourceController extends Controller
             return response()->json($insert, 200);
         } else {
             return response()->json(['message' => 'Resource has not been added successfully'], 400);
-
-
         }
     }
 
@@ -96,8 +94,7 @@ class ResourceController extends Controller
             $screenShot_path = 'resources/screenShots/';
             $req->screenShot->storeAs('public/' . $screenShot_path, $name);
             $screenShot_path .= $name;
-        }
-        else {
+        } else {
             $screenShot_path = null;
         }
 
@@ -117,7 +114,6 @@ class ResourceController extends Controller
         $resource->tags()->sync($tags);
 
         return response()->json(['message' => 'Resource has been updated successfully'], 200);
-
     }
 
     //delete resource
