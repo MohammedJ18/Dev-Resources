@@ -9,7 +9,7 @@ class SubSection extends Model
 {
     use HasFactory;
     use HelperTrait;
-    protected $fillable = ['name', 'user_id', 'category_id'];
+    protected $fillable = ['name', 'user_id', 'category_id' , 'image'];
 
     protected $appends = [
         'created_time',
