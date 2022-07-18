@@ -6,9 +6,12 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Traits\HelperTrait;
+
 
 class CategoryController extends Controller
 {
+    use HelperTrait;
     public function getCategories()
     {
         $categories = Category::withCount('resources')->withCount('subsections')->get();

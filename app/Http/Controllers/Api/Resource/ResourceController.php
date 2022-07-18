@@ -16,14 +16,22 @@ class ResourceController extends Controller
     use WithFileUploads;
     use HelperTrait;
 
-    //get resources count method
+    //get resources count
     public function getResourcesCount()
     {
         $resources = Resource::count();
         return response()->json($resources);
     }
 
-    //The last six resources method
+    //get resource with tags
+    public function getResourcesWithTags()
+    {
+        $resources = Resource::with('tags')->get();
+        return response()->json($resources);
+    }
+
+
+    //The last six resources
     public function getLastSixResources()
     {
         $resources = Resource::orderBy('id', 'desc')->take(6)->with('category')->with('subsection')->get();
@@ -63,8 +71,8 @@ class ResourceController extends Controller
 
 
         $insert = Resource::create($data);
-
         $tags = array_values($req->tags);
+
         $insert->tags()->attach($tags);
 
         if ($insert) {
