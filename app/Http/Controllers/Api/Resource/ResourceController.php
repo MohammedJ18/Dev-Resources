@@ -71,8 +71,8 @@ class ResourceController extends Controller
 
 
         $insert = Resource::create($data);
-
         $tags = array_values($req->tags);
+
         $insert->tags()->attach($tags);
 
         if ($insert) {

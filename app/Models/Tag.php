@@ -12,6 +12,16 @@ class Tag extends Model
     use HelperTrait;
     protected $fillable = ['name'];
 
+    protected $appends = [
+        'created_time',
+        'updated_time',
+
+    ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
     // Relationship
     public function resources()
     {
