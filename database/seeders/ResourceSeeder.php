@@ -66,7 +66,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 1,
             'name' => ' mysql',
             'description' => 'mysql is a relational database management system (RDBMS).',
-            'screenShot' => 'mysql.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -77,7 +77,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 2,
             'name' => ' mongo',
             'description' => 'mongo is a document-oriented database.',
-            'screenShot' => 'mongo.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -88,7 +88,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 3,
             'name' => ' java',
             'description' => 'java is a general-purpose computer programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible.',
-            'screenShot' => 'java.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -99,7 +99,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 1,
             'name' => ' c#',
             'description' => 'c# is a multi-paradigm programming language encompassing strong typing, imperative, declarative, functional, generic, object-oriented, and component-oriented programming disciplines.',
-            'screenShot' => 'c#.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -109,7 +109,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 1,
             'name' => ' c++',
             'description' => 'c++ is a general-purpose programming language. It has imperative, object-oriented and generic programming features, while also providing many software engineering features.',
-            'screenShot' => 'c++.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -120,7 +120,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 2,
             'name' => ' javaScript',
             'description' => 'javaScript is a high-level, dynamic, untyped, and interpreted programming language.',
-            'screenShot' => 'javaScript.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -131,7 +131,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 3,
             'name' => ' python',
             'description' => 'python is an interpreted, object-oriented, high-level programming language with dynamic semantics.',
-            'screenShot' => 'python.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
@@ -141,7 +141,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 3,
             'name' => ' ruby',
             'description' => 'ruby is a dynamic, object-oriented, high-level programming language with a syntax reminiscent of Perl.',
-            'screenShot' => 'ruby.png',
+            'screenShot' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
             'state' => true,
         ]);
 
