@@ -4,24 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\HelperTrait;
 class SubSection extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'image', 'category_id'];
+    use HelperTrait;
+    protected $fillable = ['name', 'user_id', 'category_id' , 'image'];
 
-     //add_image
-     public function add_image($image)
-     {
-         $ext = $image->extension();
-         $name =  \Str::random(10) . '.' . $ext;
-         $image = $image->storeAs('public/subsections/', $name);
-         return 'storage/subsections/' . $name;
-         
-     }
+    protected $appends = [
+        'created_time',
+        'updated_time',
+    ];
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
 
-   
-    
     public function category()
     {
         return $this->belongsTo(Category::class);
