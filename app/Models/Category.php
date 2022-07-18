@@ -16,6 +16,7 @@ class Category extends Model
     protected $fillable = ['name' , 'image'];
 
     protected $appends = [
+        'image_url',
         'created_time',
         'updated_time',
 
@@ -49,4 +50,5 @@ class Category extends Model
             },
         );
     }
+
 }
