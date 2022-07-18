@@ -46,7 +46,7 @@ Route::middleware(['jwt'])->group(function () {
         Route::post('/update/{id}', 'updateSubSection');
         Route::post('/delete/{id}', 'deleteSubSection');
     });
-    
+
 
     // Resources
     Route::controller(ResourceController::class)->prefix('resources')->group(function () {

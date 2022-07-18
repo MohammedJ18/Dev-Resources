@@ -15,16 +15,16 @@ class TagController extends Controller
     public function getTags()
     {
         $tags = Tag::get();
-        return response()->json($tags);
+        return $this->responseFormat($tags, 'Tags fetched successfully', 200);
     }
 
     public function getTag($id)
     {
         $tag = Tag::find($id);
         if (!$tag)
-            return response()->json(['message' => 'Tag not found'], 404);
+            return $this->responseFormat(null, 'Tag not found', 404);
 
-        return response()->json($tag);
+        return $this->responseFormat($tag, 'Tag fetched successfully', 200);
     }
 
     public function addTag(Request $req)
@@ -34,13 +34,13 @@ class TagController extends Controller
         ]);
 
         if ($validator->fails())
-            return response()->json(['message' => $validator->errors()], 400);
+            return $this->responseFormat(null, $validator->errors(), 400);
 
         $tag = Tag::create([
             'name' => $req->name,
         ]);
 
-        return response()->json(['Tag' => $tag] , 200);
+        return $this->responseFormat($tag, 'Tag added successfully', 201);
     }
 
 }
