@@ -33,7 +33,7 @@ class ResourceController extends Controller
     //get resource by id
     public function getResourceById(Request $request)
     {
-        $resource = Resource::find($request->id);
+        $resource = Resource::with('tags')->find($request->id);
         return response()->json($resource);
     }
 
