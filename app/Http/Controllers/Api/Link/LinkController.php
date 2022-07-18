@@ -21,7 +21,7 @@ class LinkController extends Controller
     {
         $link = Link::with('resource')->find($id);
         if (!$link)
-            return $this->responseFormat(null, 'Link not found', 404);
+            return $this->responseFormat([], 'Link not found', 404);
         return $this->responseFormat($link, 'Link fetched successfully', 200);
     }
 
@@ -33,12 +33,12 @@ class LinkController extends Controller
         ]);
 
         if ($validator->fails())
-            return $this->responseFormat(null, $validator->errors(), 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
         $link = new Link;
 
         if (!$link->where('resource_id', $req->resource_id)->exists())
-            return $this->responseFormat(null, 'Resource not found', 404);
+            return $this->responseFormat([], 'Resource not found', 404);
 
         $link = $link->create([
             'resource_id' => $req->resource_id,
@@ -54,12 +54,12 @@ class LinkController extends Controller
         ]);
 
         if ($validator->fails())
-            return $this->responseFormat(null, $validator->errors(), 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
         $link = Link::find($id);
 
         if (!$link)
-            return $this->responseFormat(null, 'Link not found', 404);
+            return $this->responseFormat([], 'Link not found', 404);
 
         $link->update([
             'url' => $req->url,
@@ -73,9 +73,9 @@ class LinkController extends Controller
         $link = Link::find($id);
 
         if (!$link)
-            return $this->responseFormat(null, 'Link not found', 404);
+            return $this->responseFormat([], 'Link not found', 404);
 
         $link->delete();
-        return $this->responseFormat(null, 'Link deleted successfully', 200);
+        return $this->responseFormat([], 'Link deleted successfully', 200);
     }
 }

@@ -22,7 +22,7 @@ class TagController extends Controller
     {
         $tag = Tag::find($id);
         if (!$tag)
-            return $this->responseFormat(null, 'Tag not found', 404);
+            return $this->responseFormat([], 'Tag not found', 404);
 
         return $this->responseFormat($tag, 'Tag fetched successfully', 200);
     }
@@ -34,7 +34,7 @@ class TagController extends Controller
         ]);
 
         if ($validator->fails())
-            return $this->responseFormat(null, $validator->errors(), 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
         $tag = Tag::create([
             'name' => $req->name,
