@@ -23,7 +23,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' html',
             'description' => 'html is a markup language for creating web pages and web applications.',
-            'screenShot' => 'html.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -33,7 +33,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' css',
             'description' => 'css is a style sheet language used for describing the presentation of a document written in a markup language.',
-            'screenShot' => 'css.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -44,7 +44,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 2,
             'name' => ' javascript',
             'description' => 'javascript is a high-level, dynamic, untyped, and interpreted programming language.',
-            'screenShot' => 'javascript.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -55,7 +55,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' php',
             'description' => 'php is a server-side scripting language designed for web development.',
-            'screenShot' => 'php.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -65,7 +65,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' mysql',
             'description' => 'mysql is a relational database management system (RDBMS).',
-            'screenShot' => 'mysql.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -76,7 +76,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 2,
             'name' => ' mongo',
             'description' => 'mongo is a document-oriented database.',
-            'screenShot' => 'mongo.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -87,7 +87,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 3,
             'name' => ' java',
             'description' => 'java is a general-purpose computer programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible.',
-            'screenShot' => 'java.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -98,7 +98,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' c#',
             'description' => 'c# is a multi-paradigm programming language encompassing strong typing, imperative, declarative, functional, generic, object-oriented, and component-oriented programming disciplines.',
-            'screenShot' => 'c#.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -108,7 +108,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 1,
             'name' => ' c++',
             'description' => 'c++ is a general-purpose programming language. It has imperative, object-oriented and generic programming features, while also providing many software engineering features.',
-            'screenShot' => 'c++.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -119,7 +119,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 2,
             'name' => ' javaScript',
             'description' => 'javaScript is a high-level, dynamic, untyped, and interpreted programming language.',
-            'screenShot' => 'javaScript.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -130,7 +130,7 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 3,
             'name' => ' python',
             'description' => 'python is an interpreted, object-oriented, high-level programming language with dynamic semantics.',
-            'screenShot' => 'python.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
@@ -140,11 +140,11 @@ class ResourceSeeder extends Seeder
             'subsection_id' => 3,
             'name' => ' ruby',
             'description' => 'ruby is a dynamic, object-oriented, high-level programming language with a syntax reminiscent of Perl.',
-            'screenShot' => 'ruby.png',
+            'screenShot' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
             'state' => true,
         ]);
 
-        
+
 
     }
 }

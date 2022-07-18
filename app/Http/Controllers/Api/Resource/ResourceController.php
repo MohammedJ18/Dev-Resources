@@ -30,6 +30,12 @@ class ResourceController extends Controller
         return response()->json($resources);
     }
 
+    //get resource by id
+    public function getResourceById(Request $request)
+    {
+        $resource = Resource::find($request->id);
+        return response()->json($resource);
+    }
 
     //The last six resources
     public function getLastSixResources()
