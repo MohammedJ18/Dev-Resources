@@ -10,8 +10,6 @@ use App\Traits\HelperTrait;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
 
-
-
 class CategoryController extends Controller
 {
     use HelperTrait;
@@ -20,16 +18,16 @@ class CategoryController extends Controller
     {
         $categories = Category::withCount('resources')->withCount('subsections')->get();
 
-        return response()->json($categories);
+        return $this->responseFormat($categories, 'Categories fetched successfully', 200);
     }
 
     public function getCategory($id)
     {
         $categories = Category::with('subsections')->withCount('subsections')->find($id);
         if (!$categories)
-            return response()->json(['message' => 'Category not found'], 404);
+            return $this->responseFormat([], 'Category not found', 404);
 
-        return response()->json($categories);
+        return $this->responseFormat($categories, 'Category fetched successfully', 200);
     }
 
     public function addCategory(Request $req)
@@ -39,7 +37,7 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails())
-        return response()->json(['message' => $validator->errors()], 400);
+        return $this->responseFormat([], $validator->errors(), 400);
 
         if($req->image) {
         $ext = $req->image->extension();
@@ -56,21 +54,25 @@ class CategoryController extends Controller
             'image' => $image_path,
         ]);
 
-        return response()->json(['Category' => $category] , 200);
+        return $this->responseFormat($category, 'Category added successfully', 201);
     }
 
     public function editCategory($id , Request $req)
     {
         $validator = Validator::make($req->all(), [
-            'name'         => 'required | unique:categories',
+            'name'         => 'required',
         ]);
 
         if ($validator->fails())
-        return response()->json(['message' => $validator->errors()], 400);
+        return $this->responseFormat([], $validator->errors(), 400);
 
             $category = Category::find($id);
         if (!$category)
-            return response()->json(['message' => 'Category not found'], 404);
+            return $this->responseFormat([], 'Category not found', 404);
+
+
+        if ($category->name == $req->name)
+            return $this->responseFormat([], 'The name has already been taken.', 400);
 
             if ($req->image) {
                 $ext = $req->image->extension();
@@ -87,17 +89,17 @@ class CategoryController extends Controller
             'image' => $image_path,
         ]);
 
-        return response()->json(['Message' => 'Category updated successfully'], 200);
+        return $this->responseFormat($category, 'Category updated successfully', 200);
     }
 
     public function deleteCategory($id)
     {
         $category = Category::find($id);
         if (!$category)
-            return response()->json(['message' => 'Category not found'], 404);
+            return $this->responseFormat([], 'Category not found', 404);
 
         $category->delete();
 
-        return response()->json(['message' => 'Category deleted successfully'], 200);
+        return $this->responseFormat([], 'Category deleted successfully', 200);
     }
 }
