@@ -24,7 +24,7 @@ class ResourceSeeder extends Seeder
             'sub_section_id' => 1,
             'name' => ' html',
             'description' => 'html is a markup language for creating web pages and web applications.',
-            'screenShot' => 'resources/image/tUfE0yztR6.jpg',
+            'screenShot' => '/image/icon-512x512.png',
             'state' => true,
         ]);
 
