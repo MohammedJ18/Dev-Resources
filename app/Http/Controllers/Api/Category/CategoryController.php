@@ -70,9 +70,9 @@ class CategoryController extends Controller
         if (!$category)
             return $this->responseFormat([], 'Category not found', 404);
 
-        
+
         if ($category->name == $req->name)
-            return $this->responseFormat([], 'Category already exists', 400);
+            return $this->responseFormat([], 'The name has already been taken.', 400);
 
             if ($req->image) {
                 $ext = $req->image->extension();
