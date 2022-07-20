@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('sub_section_id')->nullable()->constrained('sub_sections')->onDelete('cascade');
             $table->string('name', 100);
 			$table->text('description')->nullable();
-			$table->string('screenShot')->nullable();
+			$table->string('image')->nullable();
             $table->boolean('state')->default(false);
             $table->timestamps();
         });
