@@ -17,90 +17,19 @@ class LinkSeeder extends Seeder
      */
     public function run()
     {
-        //each resource has 2 links
         $resources = Resource::get();
+            $url = [
+                'https://www.youtube.com/',
+                'https://www.google.com/',
+            ];
 
-
-        foreach ($resources as $resource) {
-            $link = new Link;
-            $link->url = 'https://www.google.com';
-            $link->resource_id = $resource->id;
-            $link->save();
-            $link = new Link;
-            $link->url = 'https://www.youtube.com';
-            $link->resource_id = $resource->id;
-            $link->save();
+            foreach($resources as $resource) {
+                for($i = 1 ; $i <= 2 ; $i++) {
+                    Link::create([
+                        'resource_id' => $resource->id,
+                        'url' =>  $url[array_rand($url)],
+                    ]);
+            }
         }
 
-        // //resource_id: 1
-        // ### id = 1 ###
-        // Link::create([
-        //     'resource_id' => 1,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-        // ### id = 2 ###
-        // Link::create([
-        //     'resource_id' => 1,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-
-        // //resource_id: 2
-        // ### id = 3 ###
-        // Link::create([
-        //     'resource_id' => 2,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-        // ### id = 4 ###
-        // Link::create([
-        //     'resource_id' => 2,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-
-        // //resource_id: 3
-        // ### id = 5 ###
-        // Link::create([
-        //     'resource_id' => 3,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-        // ### id = 6 ###
-        // Link::create([
-        //     'resource_id' => 3,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-
-        // //resource_id: 4
-        // ### id = 7 ###
-        // Link::create([
-        //     'resource_id' => 4,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-
-        // //resource_id: 5
-        // ### id = 8 ###
-        // Link::create([
-        //     'resource_id' => 5,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-
-        // //resource_id: 6
-        // ### id = 9 ###
-        // Link::create([
-        //     'resource_id' => 6,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-        // ### id = 10 ###
-        // Link::create([
-        //     'resource_id' => 6,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-
-        // //resource_id: 7
-        // ### id = 11 ###
-        // Link::create([
-        //     'resource_id' => 7,
-        //     'url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-        // ]);
-
-
-    }
-}
+        }}

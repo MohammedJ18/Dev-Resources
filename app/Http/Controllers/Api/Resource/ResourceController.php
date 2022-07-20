@@ -22,18 +22,10 @@ class ResourceController extends Controller
         $resources = Resource::count();
         return response()->json($resources);
     }
-    
-    //get resources by subsection_id
-    public function getResourcesBySubsectionId($subsection_id)
+    //get resources with tags and links
+    public function getAllResources()
     {
-        $resources = Resource::where('sub_section_id', $subsection_id)->with('tags')->get();
-        return response()->json($resources);
-    }
-
-    //get resource with tags
-    public function getResourcesWithTags()
-    {
-        $resources = Resource::with('tags')->get();
+        $resources = Resource::with('tags', 'links')->get();
         return response()->json($resources);
     }
 
