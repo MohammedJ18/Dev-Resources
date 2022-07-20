@@ -22,18 +22,10 @@ class ResourceController extends Controller
         $resources = Resource::count();
         return response()->json($resources);
     }
-    
-    //get resources by subsection_id
-    public function getResourcesBySubsectionId($subsection_id)
+    //get resources with tags and links
+    public function getAllResources()
     {
-        $resources = Resource::where('sub_section_id', $subsection_id)->with('tags')->get();
-        return response()->json($resources);
-    }
-
-    //get resource with tags
-    public function getResourcesWithTags()
-    {
-        $resources = Resource::with('tags')->get();
+        $resources = Resource::with('tags', 'links')->get();
         return response()->json($resources);
     }
 
@@ -63,14 +55,14 @@ class ResourceController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
         }
-        if ($req->screenShot) {
-            $ext = $req->screenShot->extension();
+        if ($req->image) {
+            $ext = $req->image->extension();
             $name = \Str::random(10) . '.' . $ext;
-            $screenShot_path = 'resources/screenShots/';
-            $req->screenShot->storeAs('public/' . $screenShot_path, $name);
-            $screenShot_path .= $name;
+            $image_path = 'resources/images/';
+            $req->image->storeAs('public/' . $image_path, $name);
+            $image_path .= $name;
         } else {
-            $screenShot_path = null;
+            $image_path = null;
         }
         //
         $data = [
@@ -78,7 +70,7 @@ class ResourceController extends Controller
             'subsection_id' => $req->subsection_id,
             'name' => $req->name,
             'description' => $req->description,
-            'screenShot' => $screenShot_path,
+            'image' => $image_path,
             'state' => false,
         ];
 
@@ -109,14 +101,14 @@ class ResourceController extends Controller
             return response()->json(['message' => $validator->errors()], 400);
         }
 
-        if ($req->screenShot) {
-            $ext = $req->screenShot->extension();
+        if ($req->image) {
+            $ext = $req->image->extension();
             $name = \Str::random(10) . '.' . $ext;
-            $screenShot_path = 'resources/screenShots/';
-            $req->screenShot->storeAs('public/' . $screenShot_path, $name);
-            $screenShot_path .= $name;
+            $image_path = 'resources/images/';
+            $req->image->storeAs('public/' . $image_path, $name);
+            $image_path .= $name;
         } else {
-            $screenShot_path = null;
+            $image_path = null;
         }
 
         $resource = Resource::find($id);
@@ -128,7 +120,7 @@ class ResourceController extends Controller
             'category_id' => $req->category_id,
             'subsection_id' => $req->subsection_id,
             'description' => $req->description,
-            'screenShot' => $screenShot_path,
+            'image' => $image_path,
         ]);
 
         $tags = array_values($req->tags);
