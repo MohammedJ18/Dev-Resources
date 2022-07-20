@@ -11,7 +11,7 @@ class Resource extends Model
 {
     use HasFactory;
     use HelperTrait;
-    protected $fillable = ['category_id', 'subsection_id', 'user_id', 'name', 'description', 'screenShot', 'state'];
+    protected $fillable = ['category_id', 'subsection_id', 'user_id', 'name', 'description', 'image', 'state'];
     protected $appends = [
         'image_url',
         'created_time',
@@ -54,10 +54,10 @@ class Resource extends Model
     {
         return Attribute::make(
             get: function () {
-                if ($this->screenShot)
-                    return asset('storage/' . $this->screenShot);
+                if ($this->image)
+                    return asset('storage/' . $this->image);
 
-                else return 'no screenShot';
+                else return 'no image';
             },
         );
     }
