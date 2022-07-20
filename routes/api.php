@@ -96,7 +96,6 @@ Route::controller(ResourceController::class)->prefix('resources')->group(functio
     Route::get('/getResourcesWithTags', 'getResourcesWithTags');
     Route::post('/add', 'addResource');
     Route::get('/getResourceById/{id}', 'getResourceById');
-    Route::get('/getResourceBySubId/{id}', 'getResourcesBySubsectionId');
 
 });
 
