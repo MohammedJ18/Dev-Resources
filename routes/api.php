@@ -93,7 +93,7 @@ Route::controller(SubSectionController::class)->prefix('sub-sections')->group(fu
 Route::controller(ResourceController::class)->prefix('resources')->group(function () {
     Route::get('/', 'getResourcesCount');
     Route::get('/getLastSixResources', 'getLastSixResources');
-    Route::get('/getResourcesWithTags', 'getResourcesWithTags');
+    Route::get('/getAllResources', 'getAllResources');
     Route::post('/add', 'addResource');
     Route::get('/getResourceById/{id}', 'getResourceById');
 
