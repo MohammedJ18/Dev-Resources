@@ -17,25 +17,25 @@ class SubSectionSeeder extends Seeder
     public function run()
     {
 
+        //3 subsections for each category
         $categories = Category::get();
-        for ($i = 1; $i <= 12; $i++) {
-            SubSection::create([
-                'category_id' => $categories->random()->id,
-                'name' => 'SubSection '.$i,
-                'image' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
-            ]);
+        foreach($categories as $category) {
+            for($i = 1 ; $i <= 3 ; $i++) {
+                SubSection::create([
+                    'category_id' => $category->id,
+                    'name' => 'SubSection '.$i,
+                    'image' => 'https://t3.ftcdn.net/jpg/03/59/09/04/360_F_359090423_7kA3WC9HnDEf1I9dx4ccGFhhO90vmzhk.jpg',
+                ]);
+            }
         }
 
         // $categories = Category::get();
-        // foreach($categories as $category) {
-        //     for($i = 1 ; $i <= 2 ; $i++) {
-        //         SubSection::create([
-        //             'category_id' => $category->id,
-        //             'name' => 'SubSection '.$i,
-        //             'image' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
-
-        //         ]);
-        //     }
+        // for ($i = 1; $i <= 3; $i++) {
+        //     SubSection::create([
+        //         'category_id' => $categories->random()->id,
+        //         'name' => 'SubSection ' . $i,
+        //         'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDttUldMhvUdmfNai-4itlsclMIvHUkCn0pQ&usqp=CAU',
+        //     ]);
         // }
 
 

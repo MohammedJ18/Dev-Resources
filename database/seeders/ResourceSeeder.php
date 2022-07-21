@@ -21,7 +21,7 @@ class ResourceSeeder extends Seeder
 
         $subsections =SubSection::get();
         foreach($subsections as $subsection) {
-            for($i = 1 ; $i <= 2 ; $i++) {
+            for($i = 1 ; $i <= 12 ; $i++) {
                 Resource::create([
                     'category_id' => $subsection->category_id,
                     'sub_section_id' => $subsection->id,

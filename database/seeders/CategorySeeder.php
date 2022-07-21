@@ -19,8 +19,7 @@ class CategorySeeder extends Seeder
             for($i = 1 ; $i <= 12 ; $i++) {
                 Category::create([
                     'name' => 'Category '.$i,
-                    'image' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',
-
+                    'image' => 'https://t3.ftcdn.net/jpg/03/59/09/04/360_F_359090423_7kA3WC9HnDEf1I9dx4ccGFhhO90vmzhk.jpg',
                 ]);
             }
 
