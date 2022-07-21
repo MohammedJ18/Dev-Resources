@@ -23,7 +23,16 @@ class SubSectionController extends Controller
         }
         
         $subSection = new SubSection();
-        $subSection->image = $subSection->add_image($req->image); 
+        if($req->image) {
+            $ext = $req->image->extension();
+            $name = \Str::random(10) . '.' . $ext;
+            $image_path = 'resources/image/';
+            $req->image->storeAs('public/' . $image_path, $name);
+            $image_path .= $name;
+        }
+        else {
+            $image_path = null;
+        }
         $subSection->name = $req->name;
         $subSection->category_id = $req->category_id;
         $subSection->save();
