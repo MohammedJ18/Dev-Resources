@@ -16,7 +16,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
 
-            for($i = 1 ; $i <= 3 ; $i++) {
+            for($i = 1 ; $i <= 12 ; $i++) {
                 Category::create([
                     'name' => 'Category '.$i,
                     'image' => 'https://assets.hongkiat.com/uploads/minimalist-dekstop-wallpapers/non-4k/preview/24.jpg?3',

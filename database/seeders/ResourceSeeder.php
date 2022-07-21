@@ -6,6 +6,7 @@ use App\Models\Resource;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Category;
+use App\Models\SubSection;
 use App\Models\Tag;
 
 class ResourceSeeder extends Seeder
@@ -17,136 +18,33 @@ class ResourceSeeder extends Seeder
      */
     public function run()
     {
-        // category_id: 1 & sub_section_id: 1
+
+        $subsections =SubSection::get();
+        foreach($subsections as $subsection) {
+            for($i = 1 ; $i <= 2 ; $i++) {
+                Resource::create([
+                    'category_id' => $subsection->category_id,
+                    'sub_section_id' => $subsection->id,
+                    'name' => 'Resource '.$i,
+                    'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
+                    'description' => 'This is a description of Resource '.$i,
+                    'state' => true ,
+                ]);
+            }
+        }
+
+// category_id: 1 & sub_section_id: 1
         ### id = 1 ###
-        Resource::create([
-            'category_id' => 1,
-            'sub_section_id' => 1,
-            'name' => ' html',
-            'description' => 'html is a markup language for creating web pages and web applications.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        ### id = 2 ###
-        Resource::create([
-            'category_id' => 1,
-            'sub_section_id' => 1,
-            'name' => ' css',
-            'description' => 'css is a style sheet language used for describing the presentation of a document written in a markup language.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        // category_id: 1 & sub_section_id: 2
-        ### id = 3 ###
-        Resource::create([
-            'category_id' => 1,
-            'sub_section_id' => 2,
-            'name' => ' javascript',
-            'description' => 'javascript is a high-level, dynamic, untyped, and interpreted programming language.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        // category_id: 2 & sub_section_id: 1
-        ### id = 4 ###
-        Resource::create([
-            'category_id' => 2,
-            'sub_section_id' => 1,
-            'name' => ' php',
-            'description' => 'php is a server-side scripting language designed for web development.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        ### id = 5 ###
-        Resource::create([
-            'category_id' => 2,
-            'sub_section_id' => 1,
-            'name' => ' mysql',
-            'description' => 'mysql is a relational database management system (RDBMS).',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        //category_id: 2 & sub_section_id: 2
-        ### id = 6 ###
-        Resource::create([
-            'category_id' => 2,
-            'sub_section_id' => 2,
-            'name' => ' mongo',
-            'description' => 'mongo is a document-oriented database.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        // category_id: 2 & sub_section_id: 3
-        ### id = 7 ###
-        Resource::create([
-            'category_id' => 2,
-            'sub_section_id' => 3,
-            'name' => ' java',
-            'description' => 'java is a general-purpose computer programming language that is concurrent, class-based, object-oriented, and specifically designed to have as few implementation dependencies as possible.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        // category_id: 3 & sub_section_id: 1
-        ### id = 8 ###
-        Resource::create([
-            'category_id' => 3,
-            'sub_section_id' => 1,
-            'name' => ' c#',
-            'description' => 'c# is a multi-paradigm programming language encompassing strong typing, imperative, declarative, functional, generic, object-oriented, and component-oriented programming disciplines.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        ### id = 9 ###
-        Resource::create([
-            'category_id' => 3,
-            'sub_section_id' => 1,
-            'name' => ' c++',
-            'description' => 'c++ is a general-purpose programming language. It has imperative, object-oriented and generic programming features, while also providing many software engineering features.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        // category_id: 3 & sub_section_id: 2
-        ### id = 10 ###
-        Resource::create([
-            'category_id' => 3,
-            'sub_section_id' => 2,
-            'name' => ' javaScript',
-            'description' => 'javaScript is a high-level, dynamic, untyped, and interpreted programming language.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        // category_id: 3 & sub_section_id: 3
-        ### id = 11 ###
-        Resource::create([
-            'category_id' => 3,
-            'sub_section_id' => 3,
-            'name' => ' python',
-            'description' => 'python is an interpreted, object-oriented, high-level programming language with dynamic semantics.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
-
-        ### id = 12 ###
-        Resource::create([
-            'category_id' => 3,
-            'sub_section_id' => 3,
-            'name' => ' ruby',
-            'description' => 'ruby is a dynamic, object-oriented, high-level programming language with a syntax reminiscent of Perl.',
-            'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
-            'state' => true,
-        ]);
+        // Resource::create([
+        //     'category_id' => 1,
+        //     'sub_section_id' => 1,
+        //     'name' => ' html',
+        //     'description' => 'html is a markup language for creating web pages and web applications.',
+        //     'image' => 'https://cdn.dribbble.com/userupload/3148355/file/original-fcdbed01338262fd284b4a0699108432.png?compress=1&resize=1024x768',
+        //     'state' => true,
+        // ]);
 
 
-        // attach tags to resources
         $resources = Resource::all();
         $tags = Tag::all();
         foreach ($resources as $resource) {
