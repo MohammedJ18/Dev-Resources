@@ -29,6 +29,14 @@ class ResourceController extends Controller
         return response()->json($resources);
     }
 
+        
+    //get resources by subsection_id
+    public function getResourcesBySubsectionId($subsection_id)
+    {
+        $resources = Resource::where('sub_section_id', $subsection_id)->with('tags')->get();
+        return response()->json($resources);
+    }
+
     //get resource by id
     public function getResourceById(Request $request)
     {
