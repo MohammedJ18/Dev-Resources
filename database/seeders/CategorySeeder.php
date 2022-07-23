@@ -16,9 +16,12 @@ class CategorySeeder extends Seeder
     public function run()
     {
 
-            for($i = 1 ; $i <= 12 ; $i++) {
+        $name =[ 'front-end', 'back-end', 'mobile app'];
+        
+
+            for($i = 1 ; $i <= 3 ; $i++) {
                 Category::create([
-                    'name' => 'Category '.$i,
+                    'name' => $name[$i-1],
                     'image' => 'https://t3.ftcdn.net/jpg/03/59/09/04/360_F_359090423_7kA3WC9HnDEf1I9dx4ccGFhhO90vmzhk.jpg',
                 ]);
             }
