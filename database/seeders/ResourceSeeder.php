@@ -89,7 +89,7 @@ class ResourceSeeder extends Seeder
                 'category_id' => 2,
                 'sub_section_id' => 6,
                 'name' =>  $subsection6 . ' ' . $i,
-                'description' => 'sequel"; Structured Query Language)[5] is a domain-specific language used in programming and designed for managing data held in a relational database management system (RDBMS), or for stream processing in a relational data stream management system (RDSMS).' ,
+                'description' => 'sequel"; Structured Query Language)[5] is a domain-specific language used in programming and designed for managing data held in a relational database management system (RDBMS), or for stream processing in a relational data stream management system (RDSMS.' ,
                 'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc26BF2WGCkYzUYRZ3DKvRlq2Rpob-nxe9ng&usqp=CAU',
                 'state' => true ,
             ]);
