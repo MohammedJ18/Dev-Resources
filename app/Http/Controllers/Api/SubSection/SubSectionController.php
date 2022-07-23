@@ -21,7 +21,7 @@ class SubSectionController extends Controller
         if ($validator->fails()) {
             return $this->responseFormat([], $validator->errors(), 400);
         }
-        
+
         $subSection = new SubSection();
         if($req->image) {
             $ext = $req->image->extension();
@@ -73,7 +73,7 @@ class SubSectionController extends Controller
     //get sub section by id with resources method
     public function getSubSectionById($id)
     {
-        $subSection = SubSection::find($id);
+        $subSection = SubSection::with('resources')->find($id);
         if (!$subSection) {
             return $this->responseFormat([], 'This Sub Section not found', 404);
         }
