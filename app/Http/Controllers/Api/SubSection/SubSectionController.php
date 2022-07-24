@@ -21,9 +21,18 @@ class SubSectionController extends Controller
         if ($validator->fails()) {
             return $this->responseFormat([], $validator->errors(), 400);
         }
-        
+
         $subSection = new SubSection();
-        $subSection->image = $subSection->add_image($req->image); 
+        if($req->image) {
+            $ext = $req->image->extension();
+            $name = \Str::random(10) . '.' . $ext;
+            $image_path = 'resources/image/';
+            $req->image->storeAs('public/' . $image_path, $name);
+            $image_path .= $name;
+        }
+        else {
+            $image_path = null;
+        }
         $subSection->name = $req->name;
         $subSection->category_id = $req->category_id;
         $subSection->save();
@@ -64,7 +73,7 @@ class SubSectionController extends Controller
     //get sub section by id with resources method
     public function getSubSectionById($id)
     {
-        $subSection = SubSection::find($id);
+        $subSection = SubSection::with('resources')->find($id);
         if (!$subSection) {
             return $this->responseFormat([], 'This Sub Section not found', 404);
         }
