@@ -65,7 +65,7 @@ class ResourceSeeder extends Seeder
         for($i = 1 ; $i <= 3 ; $i++) {
             Resource::create([
                 'category_id' => 2,
-                'sub_section_id' => 1,
+                'sub_section_id' => 4,
                 'name' =>  $subsection4 . ' ' . $i,
                 'description' => 'PHP is a general-purpose scripting language geared toward web development.[7] It was originally created by Danish-Canadian programmer Rasmus Lerdorf in 1994.' ,
                 'image' => 'https://www.php.net/images/meta-image.png',
@@ -76,7 +76,7 @@ class ResourceSeeder extends Seeder
         for($i = 1 ; $i <= 3 ; $i++) {
             Resource::create([
                 'category_id' => 2,
-                'sub_section_id' => 2,
+                'sub_section_id' => 5,
                 'name' =>  $subsection5 . ' ' . $i,
                 'description' => 'is an open-source relational database management system (RDBMS).[5][6] Its name is a combination of "My", the name of co-founder Michael Wideniuss daughter,[7] and "SQL", the abbreviation for Structured Query Language.' ,
                 'image' => 'https://pbs.twimg.com/profile_images/1255113654049128448/J5Yt92WW_400x400.png',
@@ -87,9 +87,9 @@ class ResourceSeeder extends Seeder
         for($i = 1 ; $i <= 3 ; $i++) {
             Resource::create([
                 'category_id' => 2,
-                'sub_section_id' => 3,
+                'sub_section_id' => 6,
                 'name' =>  $subsection6 . ' ' . $i,
-                'description' => 'sequel"; Structured Query Language)[5] is a domain-specific language used in programming and designed for managing data held in a relational database management system (RDBMS), or for stream processing in a relational data stream management system (RDSMS).' ,
+                'description' => 'sequel"; Structured Query Language)[5] is a domain-specific language used in programming and designed for managing data held in a relational database management system (RDBMS), or for stream processing in a relational data stream management system (RDSMS.' ,
                 'image' => 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQc26BF2WGCkYzUYRZ3DKvRlq2Rpob-nxe9ng&usqp=CAU',
                 'state' => true ,
             ]);
@@ -98,7 +98,7 @@ class ResourceSeeder extends Seeder
         for($i = 1 ; $i <= 3 ; $i++) {
             Resource::create([
                 'category_id' => 3,
-                'sub_section_id' => 1,
+                'sub_section_id' => 7,
                 'name' =>  $subsection7 . ' ' . $i,
                 'description' => 'Dart is a programming language designed for client development,[8][9] such as for the web and mobile apps. It is developed by Google and can also be used to build server and desktop applications.' ,
                 'image' => 'https://www.kindpng.com/picc/m/176-1766554_dart-programming-language-logo-hd-png-download.png',
@@ -109,7 +109,7 @@ class ResourceSeeder extends Seeder
         for($i = 1 ; $i <= 3 ; $i++) {
             Resource::create([
                 'category_id' => 3,
-                'sub_section_id' => 2,
+                'sub_section_id' => 8,
                 'name' =>  $subsection8 . ' ' . $i,
                 'description' => 'Flutter is an open-source UI software development kit created by Google. It is used to develop cross platform applications for Android, iOS, Linux, macOS, Windows, Google Fuchsia,[3] and the web from a single codebase.' ,
                 'image' => 'https://play-lh.googleusercontent.com/5e7z5YCt7fplN4qndpYzpJjYmuzM2WSrfs35KxnEw-Ku1sClHRWHoIDSw3a3YS5WpGcI',
@@ -120,7 +120,7 @@ class ResourceSeeder extends Seeder
         for($i = 1 ; $i <= 3 ; $i++) {
             Resource::create([
                 'category_id' => 3,
-                'sub_section_id' => 3,
+                'sub_section_id' => 9,
                 'name' =>  $subsection9 . ' ' . $i,
                 'description' => 'React (also known as React.js or ReactJS) is a free and open-source front-end JavaScript library[3] for building user interfaces based on UI components.' ,
                 'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png',
