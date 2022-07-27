@@ -33,40 +33,7 @@ use Illuminate\Support\Facades\Artisan;
 
 
 Route::middleware(['jwt'])->group(function () {
-    //Category
-    Route::controller(CategoryController::class)->prefix('categories')->group(function () {
-        Route::post('/add', 'addCategory');
-        Route::post('/edit/{id}', 'editCategory');
-        Route::post('/delete/{id}', 'deleteCategory');
-    });
 
-    //SubSection
-    Route::controller(SubSectionController::class)->prefix('sub-sections')->group(function () {
-        Route::post('/add', 'addSubSection');
-        Route::post('/update/{id}', 'updateSubSection');
-        Route::post('/delete/{id}', 'deleteSubSection');
-    });
-
-
-    // Resources
-    Route::controller(ResourceController::class)->prefix('resources')->group(function () {
-
-        Route::post('/update/{id}', 'updateResource');
-        Route::post('/delete/{id}', 'deleteResource');
-        Route::post('/acceptResource/{id}', 'acceptResource');
-    });
-
-    // Link
-    Route::controller(LinkController::class)->prefix('links')->group(function () {
-        Route::post('/add', 'addLink');
-        Route::post('/edit/{id}', 'editLink');
-        Route::post('/delete/{id}', 'deleteLink');
-    });
-
-    //Tags
-    Route::controller(TagController::class)->prefix('tags')->group(function () {
-        Route::post('/add', 'addTag');
-    });
 
     // Auth
     Route::group(['prefix' => 'auth'], function () {
@@ -117,4 +84,38 @@ Route::controller(LinkController::class)->prefix('links')->group(function () {
 Route::group(['prefix' => 'auth'], function () {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
+});
+//Category
+Route::controller(CategoryController::class)->prefix('categories')->group(function () {
+    Route::post('/add', 'addCategory');
+    Route::post('/edit/{id}', 'editCategory');
+    Route::post('/delete/{id}', 'deleteCategory');
+});
+
+//SubSection
+Route::controller(SubSectionController::class)->prefix('sub-sections')->group(function () {
+    Route::post('/add', 'addSubSection');
+    Route::post('/update/{id}', 'updateSubSection');
+    Route::post('/delete/{id}', 'deleteSubSection');
+});
+
+
+// Resources
+Route::controller(ResourceController::class)->prefix('resources')->group(function () {
+
+    Route::post('/update/{id}', 'updateResource');
+    Route::post('/delete/{id}', 'deleteResource');
+    Route::post('/acceptResource/{id}', 'acceptResource');
+});
+
+// Link
+Route::controller(LinkController::class)->prefix('links')->group(function () {
+    Route::post('/add', 'addLink');
+    Route::post('/edit/{id}', 'editLink');
+    Route::post('/delete/{id}', 'deleteLink');
+});
+
+//Tags
+Route::controller(TagController::class)->prefix('tags')->group(function () {
+    Route::post('/add', 'addTag');
 });
