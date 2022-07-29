@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+
 use App\Traits\HelperTrait;
 
 
@@ -16,7 +17,6 @@ class Category extends Model
     protected $fillable = ['name' , 'image'];
 
     protected $appends = [
-        'image_url',
         'created_time',
         'updated_time',
 
@@ -39,14 +39,22 @@ class Category extends Model
     }
 
     //Accessor
-    protected function imageUrl(): Attribute
-    {
+    // protected function imageUrl(): Attribute
+    // {
+    //     return Attribute::make(
+    //         get: function () {
+    //             if ($this->image)
+    //                 return asset('storage/' . $this->image);
+
+    //             else return 'no image';
+    //         },
+    //     );
+    // }
+
+    protected function imagePath(): Attribute {
         return Attribute::make(
             get: function () {
-                if ($this->image)
-                    return asset('storage/' . $this->image);
-
-                else return 'no image';
+                return config('app.url') .'/storage/category/image/' . $this->image;
             },
         );
     }
