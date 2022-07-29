@@ -32,6 +32,8 @@ class SubSectionController extends Controller
             $path = 'subSection/image/' ;
             $subSection->add_file('image' , $image , $path);
         }
+        else
+            $subSection->image = 'nullllllll';
 
         $subSection->save();
         return $this->responseFormat($subSection, 'Sub Section has been added successfully', 200);
