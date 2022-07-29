@@ -29,7 +29,7 @@ class ResourceController extends Controller
         return response()->json($resources);
     }
 
-        
+
     //get resources by subsection_id
     public function getResourcesBySubsectionId($subsection_id)
     {
@@ -40,7 +40,7 @@ class ResourceController extends Controller
     //get resource by id
     public function getResourceById(Request $request)
     {
-        $resource = Resource::with('tags')->find($request->id);
+        $resource = Resource::with('tags', 'links')->find($request->id);
         return response()->json($resource);
     }
 

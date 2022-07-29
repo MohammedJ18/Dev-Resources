@@ -23,18 +23,18 @@ class SubSectionController extends Controller
         }
 
         $subSection = new SubSection();
-        if($req->image) {
-            $ext = $req->image->extension();
-            $name = \Str::random(10) . '.' . $ext;
-            $image_path = 'resources/image/';
-            $req->image->storeAs('public/' . $image_path, $name);
-            $image_path .= $name;
-        }
-        else {
-            $image_path = null;
-        }
+
         $subSection->name = $req->name;
         $subSection->category_id = $req->category_id;
+
+        $image = $req->image;
+        if ($image){
+            $path = 'subSection/image/' ;
+            $subSection->add_file('image' , $image , $path);
+        }
+        else
+            $subSection->image = 'nullllllll';
+
         $subSection->save();
         return $this->responseFormat($subSection, 'Sub Section has been added successfully', 200);
     }
