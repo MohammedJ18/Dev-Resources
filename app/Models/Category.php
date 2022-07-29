@@ -17,6 +17,7 @@ class Category extends Model
     protected $fillable = ['name' , 'image'];
 
     protected $appends = [
+        'image_url',
         'created_time',
         'updated_time',
 
@@ -38,25 +39,25 @@ class Category extends Model
         return $this->hasMany(SubSection::class);
     }
 
-    //Accessor
-    // protected function imageUrl(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: function () {
-    //             if ($this->image)
-    //                 return asset('storage/' . $this->image);
-
-    //             else return 'no image';
-    //         },
-    //     );
-    // }
-
-    protected function imagePath(): Attribute {
+    // Accessor
+    protected function imageUrl(): Attribute
+    {
         return Attribute::make(
             get: function () {
-                return config('app.url') .'/storage/category/image/' . $this->image;
+                if ($this->image)
+                    return asset('storage/' . $this->image);
+
+                else return 'no image';
             },
         );
     }
+
+    // protected function imagePath(): Attribute {
+    //     return Attribute::make(
+    //         get: function () {
+    //             return config('app.url') .'/storage/category/image/' . $this->image;
+    //         },
+    //     );
+    // }
 
 }
