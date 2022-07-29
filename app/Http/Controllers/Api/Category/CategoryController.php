@@ -52,12 +52,6 @@ class CategoryController extends Controller
             'image' => $image_path,
         ]);
 
-        // $image = $req->image;
-        // if ($image){
-        //     $path = 'category/image/' ;
-        //     $category->add_file('image' , $image , $path);
-        // }
-
         return $this->responseFormat($category, 'Category added successfully', 201);
     }
 

@@ -51,13 +51,4 @@ class Category extends Model
             },
         );
     }
-
-    // protected function imagePath(): Attribute {
-    //     return Attribute::make(
-    //         get: function () {
-    //             return config('app.url') .'/storage/category/image/' . $this->image;
-    //         },
-    //     );
-    // }
-
 }
