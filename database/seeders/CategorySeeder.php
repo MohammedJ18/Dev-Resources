@@ -17,7 +17,7 @@ class CategorySeeder extends Seeder
     {
 
         $name =[ 'front-end', 'back-end', 'mobile app'];
-        
+
 
             for($i = 1 ; $i <= 3 ; $i++) {
                 Category::create([
