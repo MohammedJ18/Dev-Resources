@@ -14,6 +14,7 @@ class SubSection extends Model
     protected $fillable = ['name', 'user_id', 'category_id' , 'image'];
 
     protected $appends = [
+        'image_url',
         'created_time',
         'updated_time',
     ];
@@ -32,23 +33,16 @@ class SubSection extends Model
         return $this->hasMany(Resource::class);
     }
 
-    // protected function imageUrl(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: function () {
-    //             if ($this->image)
-    //                 return asset('storage/' . $this->image);
-
-    //             else return 'no image';
-    //         },
-    //     );
-    // }
-
-    protected function imagePath(): Attribute {
+    protected function imageUrl(): Attribute
+    {
         return Attribute::make(
             get: function () {
-                return config('app.url') .'/storage/subSection/image/' . $this->image;
+                if ($this->image)
+                    return asset('storage/' . $this->image);
+
+                else return 'no image';
             },
         );
     }
+
 }
