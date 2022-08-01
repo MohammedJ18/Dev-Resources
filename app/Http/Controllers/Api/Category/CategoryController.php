@@ -40,7 +40,7 @@ class CategoryController extends Controller
         if($req->image) {
         $ext = $req->image->extension();
         $name = \Str::random(10) . '.' . $ext;
-        $image_path = 'categories/image/';
+        $image_path = 'resources/image/';
         $req->image->storeAs('public/' . $image_path, $name);
         $image_path .= $name;
         }
@@ -75,7 +75,7 @@ class CategoryController extends Controller
             if ($req->image) {
                 $ext = $req->image->extension();
                 $name = \Str::random(10) . '.' . $ext;
-                $image_path = 'categories/image/';
+                $image_path = 'resources/image/';
                 $req->image->storeAs('public/' . $image_path, $name);
                 $image_path .= $name;
             } else {
