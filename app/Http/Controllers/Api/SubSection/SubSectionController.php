@@ -7,10 +7,13 @@ use App\Models\SubSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\HelperTrait;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class SubSectionController extends Controller
 {
     use HelperTrait;
+    use WithFileUploads;
     //add sub section method
     public function addSubSection(Request $req)
     {
@@ -23,7 +26,7 @@ class SubSectionController extends Controller
         }
 
         $subSection = new SubSection();
-        
+
         if ($req->image) {
             $ext = $req->image->extension();
             $name = \Str::random(10) . '.' . $ext;

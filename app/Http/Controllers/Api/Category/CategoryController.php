@@ -7,11 +7,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Traits\HelperTrait;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 
 class CategoryController extends Controller
 {
     use HelperTrait;
+    use WithFileUploads;
     public function getCategories()
     {
         $categories = Category::withCount('resources')->withCount('subsections')->get();
@@ -75,7 +78,7 @@ class CategoryController extends Controller
             if ($req->image) {
                 $ext = $req->image->extension();
                 $name = \Str::random(10) . '.' . $ext;
-                $image_path = 'categories/image/';
+                $image_path = 'categories/images/';
                 $req->image->storeAs('public/' . $image_path, $name);
                 $image_path .= $name;
             } else {
