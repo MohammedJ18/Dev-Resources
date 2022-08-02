@@ -40,7 +40,7 @@ class CategoryController extends Controller
         if($req->image) {
         $ext = $req->image->extension();
         $name = \Str::random(10) . '.' . $ext;
-        $image_path = 'resources/image/';
+        $image_path = 'categories/image/';
         $req->image->storeAs('public/' . $image_path, $name);
         $image_path .= $name;
         }
@@ -51,12 +51,6 @@ class CategoryController extends Controller
             'name' => $req->name,
             'image' => $image_path,
         ]);
-
-        // $image = $req->image;
-        // if ($image){
-        //     $path = 'category/image/' ;
-        //     $category->add_file('image' , $image , $path);
-        // }
 
         return $this->responseFormat($category, 'Category added successfully', 201);
     }
@@ -81,7 +75,7 @@ class CategoryController extends Controller
             if ($req->image) {
                 $ext = $req->image->extension();
                 $name = \Str::random(10) . '.' . $ext;
-                $image_path = 'resources/image/';
+                $image_path = 'categories/image/';
                 $req->image->storeAs('public/' . $image_path, $name);
                 $image_path .= $name;
             } else {

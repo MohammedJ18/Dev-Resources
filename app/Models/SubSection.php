@@ -45,11 +45,4 @@ class SubSection extends Model
         );
     }
 
-    // protected function imagePath(): Attribute {
-    //     return Attribute::make(
-    //         get: function () {
-    //             return config('app.url') .'/storage/subSection/image/' . $this->image;
-    //         },
-    //     );
-    // }
 }
