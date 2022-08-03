@@ -37,11 +37,4 @@ trait HelperTrait
         );
     }
 
-    public function add_file($column , $file , $path){
-        $ext = $file->extension();
-        $name = md5($this->id . \Str::random(5) . now()->timestamp) . '.' . $ext;
-        $file->storeAs('public/' . $path, $name);
-        $this->$column = $name;
-        $this->save();
-    }
 }
