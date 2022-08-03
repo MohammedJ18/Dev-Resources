@@ -35,16 +35,15 @@ class CategoryController extends Controller
         ]);
 
         if ($validator->fails())
-        return $this->responseFormat([], $validator->errors(), 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
-        if($req->image) {
-        $ext = $req->image->extension();
-        $name = \Str::random(10) . '.' . $ext;
-        $image_path = 'resources/image/';
-        $req->image->storeAs('public/' . $image_path, $name);
-        $image_path .= $name;
-        }
-        else {
+        if ($req->image) {
+            $ext = $req->image->extension();
+            $name = \Str::random(10) . '.' . $ext;
+            $image_path = 'resources/image/';
+            $req->image->storeAs('public/' . $image_path, $name);
+            $image_path .= $name;
+        } else {
             $image_path = null;
         }
         $category = Category::create([
@@ -61,16 +60,16 @@ class CategoryController extends Controller
         return $this->responseFormat($category, 'Category added successfully', 201);
     }
 
-    public function editCategory($id , Request $req)
+    public function editCategory($id, Request $req)
     {
         $validator = Validator::make($req->all(), [
             'name'         => 'required',
         ]);
 
         if ($validator->fails())
-        return $this->responseFormat([], $validator->errors(), 400);
+            return $this->responseFormat([], $validator->errors(), 400);
 
-            $category = Category::find($id);
+        $category = Category::find($id);
         if (!$category)
             return $this->responseFormat([], 'Category not found', 404);
 
@@ -78,15 +77,15 @@ class CategoryController extends Controller
         if ($category->name == $req->name)
             return $this->responseFormat([], 'The name has already been taken.', 400);
 
-            if ($req->image) {
-                $ext = $req->image->extension();
-                $name = \Str::random(10) . '.' . $ext;
-                $image_path = 'resources/image/';
-                $req->image->storeAs('public/' . $image_path, $name);
-                $image_path .= $name;
-            } else {
-                $image_path = null;
-            }
+        if ($req->image) {
+            $ext = $req->image->extension();
+            $name = \Str::random(10) . '.' . $ext;
+            $image_path = 'resources/image/';
+            $req->image->storeAs('public/' . $image_path, $name);
+            $image_path .= $name;
+        } else {
+            $image_path = null;
+        }
 
         $category->update([
             'name' => $req->name,
