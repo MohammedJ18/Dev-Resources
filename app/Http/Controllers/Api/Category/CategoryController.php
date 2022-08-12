@@ -60,6 +60,8 @@ class CategoryController extends Controller
 
     public function editCategory($id , Request $req)
     {
+        // info($req->toArray());
+        // dd('ll');
         $validator = Validator::make($req->all(), [
             'name'         => 'required',
         ]);
