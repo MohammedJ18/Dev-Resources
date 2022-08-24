@@ -54,9 +54,10 @@ class ResourceController extends Controller
     //add resource
     public function addResource(Request $req)
     {
+        
         $validator = Validator::make($req->all(), [
             'category_id' => 'required|exists:categories,id',
-            'subsection_id' => 'required|exists:sub_sections,id',
+            'sub_section_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
             'description' => 'required',
         ]);
@@ -75,7 +76,7 @@ class ResourceController extends Controller
         //
         $data = [
             'category_id' => $req->category_id,
-            'subsection_id' => $req->subsection_id,
+            'sub_section_id' => $req->sub_section_id,
             'name' => $req->name,
             'description' => $req->description,
             'image' => $image_path,
@@ -85,7 +86,6 @@ class ResourceController extends Controller
 
         $insert = Resource::create($data);
         $tags = array_values($req->tags);
-
         $insert->tags()->attach($tags);
 
         if ($insert) {
@@ -101,7 +101,7 @@ class ResourceController extends Controller
 
         $validator = Validator::make($req->all(), [
             'category_id' => 'required|exists:categories,id',
-            'subsection_id' => 'required|exists:sub_sections,id',
+            'sub_section_id' => 'required|exists:sub_sections,id',
             'name' => 'required',
             'description' => 'required',
         ]);
@@ -126,7 +126,7 @@ class ResourceController extends Controller
         $resource->update([
             'name' => $req->name,
             'category_id' => $req->category_id,
-            'subsection_id' => $req->subsection_id,
+            'sub_section_id' => $req->sub_section_id,
             'description' => $req->description,
             'image' => $image_path,
         ]);

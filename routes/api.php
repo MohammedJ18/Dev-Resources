@@ -76,7 +76,7 @@ Route::controller(TagController::class)->prefix('tags')->group(function () {
 // Link
 Route::controller(LinkController::class)->prefix('links')->group(function () {
     Route::get('/', 'getLinks');
-    Route::get('/{id}', 'getLink');
+    Route::get('/{id}', 'link');
 });
 
 
